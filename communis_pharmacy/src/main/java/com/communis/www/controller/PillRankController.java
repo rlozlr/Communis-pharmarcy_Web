@@ -19,4 +19,7 @@ public class PillRankController {
 	
 	@GetMapping("/list")
 	public void register() {}
+	
+	@GetMapping("/detail")
+	public void detail() {}
 }
