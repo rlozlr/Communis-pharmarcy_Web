@@ -2,8 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<<<<<<< HEAD
 <!-- Bootstrap 내비게이션 바 -->
 <!-- <nav class="navbar navbar-expand-lg">
+=======
+<nav class="navbar navbar-expand-lg">
+>>>>>>> academy
   <div class="container-fluid">
     <a class="navbar-brand" href="/">꼼뮤니스</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
