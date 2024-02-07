@@ -11,8 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PillRank {
 
-	private long rank_id;
-	private String name;
-	private long dibs;
-	private long sell;
+	private long pill_rank_id;
+	private String pill_rank_type;
+	private String pill_name;
+	private long pill_dibs;
+	private long pill_sell;
 }

@@ -16,9 +16,10 @@ FLUSH PRIVILEGES;
 
 #인기 약품 Table
 CREATE TABLE pill_rank (
-rank_id BIGINT NOT NULL,
-name VARCHAR(256) NOT NULL,
-dibs BIGINT DEFAULT 0,
-sell BIGINT DEFAULT 0,
-PRIMARY KEY(rank_id)
+pill_rank_id BIGINT NOT NULL,
+pill_rank_type VARCHAR(256) NOT NULL,
+pill_name VARCHAR(256) NOT NULL,
+pill_dibs BIGINT DEFAULT 0,
+pill_sell BIGINT DEFAULT 0,
+PRIMARY KEY(pill_rank_id)
 );
