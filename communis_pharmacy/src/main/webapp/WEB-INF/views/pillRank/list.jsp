@@ -6,7 +6,7 @@
 <jsp:include page="../layout/nav.jsp"></jsp:include>
 
 <div
-  style="width: 100%; height: 843px; position: relative; overflow: hidden; background: #fff2c6;"
+  style="width: 100%; height: 843px; position: relative; overflow: hidden; background: linear-gradient(to bottom right, rgba(255,242,198,0) 0%, #fff2c6 50.73%, rgba(255,242,198,0) 100%);"
 >
   <div style="width: 1141px; height: 677px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
     <div style="width: 297px; height: 297px; position: absolute; left: 0px; top: 0px;">
@@ -25,7 +25,11 @@
         <p
           style="position: absolute; left: 0px; top: 0px; font-size: 32px; font-weight: 700; text-align: left; color: #fff;"
         >
+<<<<<<< HEAD
+          <a href="/pillRank/detail" style="text-decoration:none; color: #fff;">소화기</a>
+=======
           <a href="/pillRank/digestionDetail" style="text-decoration: none; color: #fff;">소화기</a>
+>>>>>>> academy
         </p>
       </div>
     </div>
