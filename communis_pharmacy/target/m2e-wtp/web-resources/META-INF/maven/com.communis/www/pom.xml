@@ -284,6 +284,21 @@
 		    <artifactId>spring-security-taglibs</artifactId>
 		    <version>5.5.3</version>
 		</dependency>
+		
+		<!-- API를 위한 json -->
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20230227</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+		
 
 	</dependencies>
 	

@@ -17,7 +17,7 @@
 	<div class="container text-center">
 	  <div class="row row-cols-5" id="pillRankItemList">
 	    <div class="col" id="pillRankItem">
-	    	<div>이미지</div>
+	    	<div><img src="#" alt="이미지가 없습니다."></div>
 	    	<div id="pillName">약품명</div>
 	    	<div id="coName">제조사</div>
 	    	<div>
@@ -53,5 +53,4 @@
 
 </div>
 <script src="/resources/js/pillRank/pillRankDetail.js"></script>
-
 <jsp:include page="../layout/footer.jsp"></jsp:include>
