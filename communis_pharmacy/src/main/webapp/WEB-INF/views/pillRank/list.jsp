@@ -25,11 +25,7 @@
         <p
           style="position: absolute; left: 0px; top: 0px; font-size: 32px; font-weight: 700; text-align: left; color: #fff;"
         >
-<<<<<<< HEAD
-          <a href="/pillRank/detail" style="text-decoration:none; color: #fff;">소화기</a>
-=======
           <a href="/pillRank/digestionDetail" style="text-decoration: none; color: #fff;">소화기</a>
->>>>>>> academy
         </p>
       </div>
     </div>

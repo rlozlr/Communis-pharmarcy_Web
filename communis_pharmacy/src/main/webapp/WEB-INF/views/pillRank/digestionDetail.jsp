@@ -53,5 +53,7 @@
 
 </div>
 <script src="/resources/js/pillRank/pillRankDetail.js"></script>
-
+<script type="text/javascript">
+	spreadPillNameFromAPI();
+</script>
 <jsp:include page="../layout/footer.jsp"></jsp:include>
