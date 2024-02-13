@@ -18,5 +18,6 @@ public class PillNaverResultVO {
 	private String lastBuildDate;
 	private int total;
 	private int start;
+	private int display;
 	private List<PillVO> items;
 }

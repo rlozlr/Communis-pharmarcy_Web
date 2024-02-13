@@ -20,6 +20,9 @@
           <a class="nav-link" href="/pillRank/list">인기 약품</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/menu/register">약품등록</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="#">가까운 약국</a>
         </li>
         <li class="nav-item">

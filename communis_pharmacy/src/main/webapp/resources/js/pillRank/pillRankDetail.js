@@ -13,10 +13,12 @@ async function spreadPillInfoToServer() {
         const resp = await fetch(url, config);
         const result = await resp.json();
 
-        // 가져온 업체명과 제품명을 가지고 이미지를 가져오는 함수 호출
-        await spreadPillImgToServer(result.itemName, result.entpName);
+        // itemName과 entpName 가져오기
+        const itemName = result.itemName;
+        const entpName = result.entpName;
 
-        spreadPillNameFromAPI(result.body);
+        // 약 이미지 가져오는 함수 호출
+        await spreadPillImgToServer(itemName, entpName);
 
     } catch (error) {
         console.log(error);
@@ -38,24 +40,28 @@ async function spreadPillImgToServer(itemName, entpName) {
         const result = await resp.json();
         console.log(result);
 
+        const thumbnail = result.thumbnail;
+        // 이미지 정보와 약 정보 함께 전달하여 약 정보 표시 함수 호출
+        spreadPillNameFromAPI(itemName, entpName, thumbnail);
+
     } catch (error) {
         console.log(error);
     };
 };
 
-function spreadPillNameFromAPI(result) {
+function spreadPillNameFromAPI(itemName, entpName, thumbnail) {
     const pillRankItem = document.getElementById('pillRankItemList');
     pillRankItem.innerHTML = '';
-    result.forEach(item => {
+    //result.forEach(item => {
         let pillItem = `<div class="col">`;
-        pillItem += `<div><img src="${item.thumbnail}" alt='이미지가 없습니다'.></div>`;
-        pillItem += `<div data-itemName="${item.itemName}" >${item.itemName}</div>`;
-        pillItem += `<div data-entpName="${item.entpName}" >${item.entpName}</div>`;
+        pillItem += `<div><img src="${thumbnail}" alt='이미지가 없습니다'.></div>`;
+        pillItem += `<div data-itemName="${itemName}" >${itemName}</div>`;
+        pillItem += `<div data-entpName="${entpName}" >${entpName}</div>`;
         pillItem += `<div>`;
         pillItem += `<button type="button">장바구니</button>`;
         pillItem += `<button type="button">바로구매</button>`;
         pillItem += `</div></div>`;
         //pillItemArr.push(pillItem);
         pillRankItem.innerHTML += pillItem;
-    });
+    //});
 };

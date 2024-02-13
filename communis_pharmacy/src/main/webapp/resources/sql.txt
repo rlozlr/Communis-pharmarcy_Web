@@ -14,12 +14,14 @@ TO 'communis'@'localhost'
 WITH GRANT option;
 FLUSH PRIVILEGES;
 
-#인기 약품 Table
-CREATE TABLE pill_rank (
-pill_rank_id BIGINT NOT NULL,
-pill_rank_type VARCHAR(256) NOT NULL,
-pill_name VARCHAR(256) NOT NULL,
-pill_dibs BIGINT DEFAULT 0,
+#약품 Table
+CREATE TABLE pill (
+pill_id BIGINT NOT NULL,
+item_name VARCHAR(256) NOT NULL,
+entp_name VARCHAR(256) NOT NULL,
+efcy_qesitm VARCHAR(256) NOT NULL,
+thumbnail VARCHAR(256),
 pill_sell BIGINT DEFAULT 0,
-PRIMARY KEY(pill_rank_id)
+pill_dibs BIGINT DEFAULT 0,
+PRIMARY KEY(pill_id)
 );

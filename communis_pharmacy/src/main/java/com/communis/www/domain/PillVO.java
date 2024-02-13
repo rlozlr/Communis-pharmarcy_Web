@@ -13,8 +13,19 @@ import lombok.ToString;
 @AllArgsConstructor
 public class PillVO {
 
+	private long pillId;
 	private String itemName;	// 제품명 (공공)
 	private String entpName;	// 업체명	(공공)
 	private String efcyQesitm;	//효능 (공공)
 	private String thumbnail;	// 이미지 (네이버)
+	private long pillSell;	// 판매량
+	private long pillDibs;	// 찜
+	
+	public PillVO(String itemName, String entpName, String efcyQesitm, String thumbnail) {
+		this.itemName = itemName;
+		this.entpName = entpName;
+		this.efcyQesitm = efcyQesitm;
+		this.thumbnail = thumbnail;
+	}
+	
 }
