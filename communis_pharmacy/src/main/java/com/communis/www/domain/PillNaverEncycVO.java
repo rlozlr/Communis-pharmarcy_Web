@@ -1,7 +1,5 @@
 package com.communis.www.domain;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,11 +11,10 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class PillNaverResultVO {
-	
-	private String lastBuildDate;
-	private int total;
-	private int start;
-	private int display;
-	private List<PillNaverEncycVO> items;
+public class PillNaverEncycVO {
+
+	private String title;
+	private String link;
+	private String description;
+	private String thumbnail;
 }

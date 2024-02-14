@@ -29,7 +29,7 @@ public class MenuController {
         log.info(">>> PillName >>> {}",pillName);
     	// 약품명으로 약품 정보 검색
         PillVO pillInfo = pillInfoApiController.fetchPillData(pillName);
-        
+        log.info(">>> 메뉴 약 정보 >>> {}", pillInfo);
         if (pillInfo != null) {
             model.addAttribute("pillInfo", pillInfo);
         }
