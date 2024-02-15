@@ -15,6 +15,8 @@ public class PillNaverEncycVO {
 
 	private String title;
 	private String link;
-	private String description;
+	//private String description;
 	private String thumbnail;
+	private String sizeheight;
+	private String sizewidth;
 }

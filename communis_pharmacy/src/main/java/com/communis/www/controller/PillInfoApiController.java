@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,6 +28,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.communis.www.domain.PillNaverEncycVO;
 import com.communis.www.domain.PillNaverResultVO;
+import com.communis.www.domain.PillNaverShopVO;
 import com.communis.www.domain.PillVO;
 import com.communis.www.service.PillService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -41,59 +43,65 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @RequestMapping("/apiPill")
 public class PillInfoApiController {
-
-	//private final PillService psv;
 	
 	// 네이버 검색 API
 	private final String clientId = "GKiuRoD8tw_H5nG_0SA_";
 	private final String clientSecret = "vmRxh0_ve3";
     
-    public PillVO fetchPillData(String pillName) {
+    public List<PillVO> fetchPillData(String pillName) {
+
         try {
-            // 공공 API 호출
-            ResponseEntity<String> publicResponse = fetchPillDataFromPublicAPI(pillName);
-            log.info(">>>> 7 >>>>>{}",publicResponse);
-            // 응답이 비어 있는 경우 처리
-            if (publicResponse == null || publicResponse.getBody() == null || publicResponse.getBody().isEmpty()) {
-                log.error("Empty response received from public API");
-                return null;
-            }
-
-            // JSON 형식으로 파싱
-            JSONObject publicJson = new JSONObject(publicResponse.getBody());
-            String itemName = publicJson.getString("itemName");
-
-            // 특정 약물 이름이 일치하는지 확인
-            if (itemName.contains(pillName)) {
+            int totalCount = getPillTotalCount(pillName);
+            List<PillVO> pillInfoList = new ArrayList<>();
+            
+            for (int i = 0; i < totalCount; i++) {
+                ResponseEntity<List<String>> publicResponse = fetchPillDataFromPublicAPI(i, pillName);
+                // 응답이 비어 있는 경우 처리
+                if (publicResponse == null || publicResponse.getBody() == null || publicResponse.getBody().isEmpty()) {
+                    log.error("Empty response received from public API");
+                    continue;
+                }
+                
+                List<String> jsonResponseList = publicResponse.getBody();
+                JSONObject publicJson = new JSONObject(jsonResponseList.get(i));
+                String itemName = publicJson.getString("itemName");
                 String entpName = publicJson.getString("entpName");
                 String efcyQesitm = publicJson.getString("efcyQesitm");
-
-                // 네이버 API 호출을 통해 썸네일 가져오기
                 String thumbnail = fetchThumbnailFromNaverAPI(itemName, entpName);
-
-                // 네이버 응답이 null이거나 비어 있는 경우 처리
-                if (thumbnail == null || thumbnail.isEmpty()) {
-                    log.error("Empty or null response received from Naver API");
-                    return null;
-                }
-
+//                String thumbnail = publicJson.optString("itemImage", null); // "itemImage" 필드가 없거나 null인 경우 빈 문자열 반환
+//                // "itemImage" 필드가 null이거나 빈 문자열인 경우 네이버 API에서 썸네일 가져오기
+//                if (thumbnail == null || thumbnail.isEmpty()) {
+//                	// 네이버 API 호출을 통해 썸네일 가져오기
+//                	log.info(">>>이름 확인 >>>> {}",itemName);
+//                    thumbnail = fetchThumbnailFromNaverAPI(itemName, entpName);
+//                    log.info(">>>이미지 확인 >>>> {}",thumbnail);
+//                	//thumbnail = fetchImageFromNaverAPI(itemName, entpName);
+//                	
+//                    // 네이버 응답이 null이거나 비어 있는 경우 처리
+//                    if (thumbnail == null || thumbnail.isEmpty()) {
+//                        log.error("Empty or null response received from Naver API");
+//                        thumbnail = "이미지가 없습니다.";
+//                    }
+//                }
+                    
                 // PillVO 객체 생성 및 데이터 채우기
                 PillVO pillInfo = new PillVO(itemName, entpName, efcyQesitm, thumbnail);
-                log.info(">>> pillVO >>> {}", pillInfo);
-                return pillInfo;
-            } else {
-                return null; // 약물 이름이 일치하지 않는 경우
+                pillInfoList.add(pillInfo);
             }
-            // DB에 데이터 저장 (추가 작업 필요)
+            
+            return pillInfoList;
         } catch (Exception e) {
             log.error("Error while fetching pill data: {}", e.getMessage());
             return null;
         }
     }
-    private String publicApi(int page) {
+    
+    private String publicApi(int page, String pillName) {
+    	
         try {
             StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList");
             urlBuilder.append("?serviceKey=V9DGQbhMJjmbWxK4YRrcT8ermlbt7BNHmCwFW8XVWFHjcQJ2BjGutncG1vYC4ZAUGuzz%2BwkFyFkOYRA0m4g5pA%3D%3D"); // 여기에 본인의 실제 서비스키 입력
+            urlBuilder.append("&itemName=" + URLEncoder.encode(pillName, "UTF-8"));
             urlBuilder.append("&pageNo="+Integer.toString(page));
             urlBuilder.append("&type=json"); // JSON 형식으로 응답 받기
 
@@ -103,12 +111,10 @@ public class PillInfoApiController {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
             StringBuilder response = new StringBuilder();
-            //response.append("{");
             String line;
             while ((line = br.readLine()) != null) {
                 response.append(line);
             }
-            log.info(">>>> response >>>> {}", response);
             br.close();
             conn.disconnect();
             
@@ -121,49 +127,47 @@ public class PillInfoApiController {
         }
     }
     
-    public ResponseEntity<String> fetchPillDataFromPublicAPI(String pillName) {
+    private ResponseEntity<List<String>> fetchPillDataFromPublicAPI(int count, String pillName) {
     	
         try {
-        	
-        	for(int i = 1; i < 470; i ++) {
-        		String response = publicApi(i);
+        	List<String> pillInfoList = new ArrayList<>();
+        	int totalCount = getPillTotalCount(pillName);
+            
+            // total count를 기반으로 페이지 수 계산
+            int pageCount = (int)Math.ceil((double)totalCount / 10); // numOfRows가 10으로 고정
 
+            for(int i = 1; i <= pageCount; i++) {
+                String response = publicApi(i, pillName);
 
-		        // 응답이 없는 경우
-	            if (response.length() == 0) {
-	                log.error("Empty response received from public API");
-	                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-	            }
-	            
-	            
-	            log.info(">>>> 1");
-		        
-	            // JSON 형식의 응답 문자열을 JSONObject로 변환
-	            JSONObject jsonResponse = new JSONObject(response.toString().trim());
-	            log.info(">>>> 2");
-	            // body 객체에서 items 배열을 가져옴
-	            JSONArray items = jsonResponse.getJSONObject("body").getJSONArray("items");
-	            log.info(">>>> 3");
-	            log.info("items.length>>>");
-	            // items 배열 for문 돌려서 이름 일치하는거 가져오기
-	            for(int j = 0; j < items.length(); j++) {
-		            JSONObject firstItem = items.getJSONObject(j);
-		            log.info(">>>> 4");
-		            // firstItem에서 itemName 값을 가져옴
-		            String itemName = firstItem.getString("itemName");
-		            log.info(">>>> 5");
-		            // itemName을 비교
-		            if (itemName.contains(pillName)) {
-		                // itemName이 pillName을 포함하고 있는 경우에 대한 처리
-		            	log.info(">>>> 6 ");
-		                return ResponseEntity.ok().body(firstItem.toString());
-		            } 
-	            }
-        	}
-        	return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item name does not match the provided pillName.");
+                // 응답이 없는 경우
+                if (response.length() == 0) {
+                    log.error("Empty response received from public API");
+                    continue;
+                }
+                
+                // JSON 형식의 응답 문자열을 JSONObject로 변환
+                JSONObject jsonResponse = new JSONObject(response.toString().trim());
+                // body 객체에서 items 배열을 가져옴
+                JSONArray items = jsonResponse.getJSONObject("body").getJSONArray("items");
+                // items 배열 for문 돌려서 이름 일치하는거 가져오기
+                for(int j = 0; j < items.length(); j++) {
+                    JSONObject item = items.getJSONObject(j);
+                    // item에서 itemName 값을 가져옴
+                    String itemName = item.getString("itemName");
+                    // itemName을 비교하여 포함하면 리스트에 추가
+                    if (itemName.contains(pillName)) {
+                        pillInfoList.add(item.toString());
+                    } 
+                }
+            }
+            
+            if (pillInfoList.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList());
+            } else {
+                return ResponseEntity.ok().body(pillInfoList);
+            }
         } catch (Exception e) {
-            // 오류 발생 시 Internal Server Error 반환
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching pill data.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
         }
     }
     
@@ -173,11 +177,12 @@ public class PillInfoApiController {
 			// 네이버 API 호출을 위한 URI 생성
 			URI naverUri = UriComponentsBuilder
 	    		.fromUriString("https://openapi.naver.com")
-	    		.path("/v1/search/encyc.json")
-	            .queryParam("query", itemName + " " + entpName + " 이미지")
+	    		.path("/v1/search/shop.json")
+	            .queryParam("query", itemName + " " + entpName)
 	            .encode()
 	            .build()
 	            .toUri();
+			
 			
 			RequestEntity<Void> req = RequestEntity
                     .get(naverUri)
@@ -193,20 +198,17 @@ public class PillInfoApiController {
 
 			try {
 			    resultVO = om.readValue(resp.getBody(), PillNaverResultVO.class);
-			    
 			} catch (JsonMappingException e) {
 			    e.printStackTrace();
-			    
 			} catch (JsonProcessingException e) {
 			    e.printStackTrace();
 			}
 
-			List<PillNaverEncycVO> encycList =resultVO.getItems();
+			List<PillNaverShopVO> shopList =resultVO.getItems();
 			
-			if (encycList != null && !encycList.isEmpty()) {
+			if (shopList != null && !shopList.isEmpty()) {
 			    // 첫 번째 아이템의 썸네일 정보만 추출
-			    String thumbnail = encycList.get(0).getThumbnail();
-			    log.info(">>> thumbnail >>> {}", thumbnail);
+			    String thumbnail = shopList.get(0).getImage();
 			    return thumbnail;
 			}
 			
@@ -216,21 +218,25 @@ public class PillInfoApiController {
 		}
 		return null;
 	}
-			
 	
-//    private int getPillTotalCount(String responseBody) {
-//        try {
-//            // JSON 데이터 파싱
-//            JSONObject responseJson = new JSONObject(responseBody);
-//            JSONObject bodyJson = responseJson.getJSONObject("body");
-//
-//            // "totalCount" 필드 추출
-//            int totalCount = bodyJson.getInt("totalCount");
-//            return totalCount;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return 0; // 에러 발생 시 0을 반환하거나 적절한 에러 처리를 수행할 수 있습니다.
-//        }
-//    }
+    private int getPillTotalCount(String pillName) {
+        try {
+            // 첫 번째 페이지의 데이터를 가져와서 total count 확인
+            String firstPageResponse = publicApi(1, pillName);
+            if (firstPageResponse.length() == 0) {
+                log.error("Empty response received from public API");
+                return 0;
+            }
+            
+            // JSON 형식의 응답 문자열을 JSONObject로 변환하여 total count 추출
+            JSONObject firstPageJsonResponse = new JSONObject(firstPageResponse.toString().trim());
+            int totalCount = firstPageJsonResponse.getJSONObject("body").getInt("totalCount");
+            return totalCount;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0; // 에러 발생 시 0을 반환하거나 적절한 에러 처리를 수행할 수 있습니다.
+        }
+    }
     
 }

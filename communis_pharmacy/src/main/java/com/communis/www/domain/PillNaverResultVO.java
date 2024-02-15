@@ -9,8 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Setter
-@Getter
-@ToString
+@Getter@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class PillNaverResultVO {
@@ -19,5 +18,5 @@ public class PillNaverResultVO {
 	private int total;
 	private int start;
 	private int display;
-	private List<PillNaverEncycVO> items;
+	private List<PillNaverShopVO> items;
 }

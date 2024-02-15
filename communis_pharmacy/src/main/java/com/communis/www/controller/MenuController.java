@@ -1,9 +1,12 @@
 package com.communis.www.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,16 +27,12 @@ public class MenuController {
 	@GetMapping("/register")
 	public void register () {}
 	
-    @GetMapping("/search")
-    public String searchPillByName(@RequestParam String pillName, Model model) {
-        log.info(">>> PillName >>> {}",pillName);
+    @PostMapping("/register")
+    public void searchPillByName(@RequestParam String pillName, Model model) {
     	// 약품명으로 약품 정보 검색
-        PillVO pillInfo = pillInfoApiController.fetchPillData(pillName);
-        log.info(">>> 메뉴 약 정보 >>> {}", pillInfo);
-        if (pillInfo != null) {
-            model.addAttribute("pillInfo", pillInfo);
-        }
-        return "redirect:/menu/register";
+    	List<PillVO> pillInfoList = pillInfoApiController.fetchPillData(pillName);
+        model.addAttribute("pillInfoList", pillInfoList);
+        //return "redirect:/menu/register";
     }
     
 }

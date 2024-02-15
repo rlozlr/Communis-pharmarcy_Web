@@ -5,25 +5,31 @@
 
 <h1>약품 정보 검색</h1>
 
-<form action="/menu/search" method="get">
+<form action="/menu/register" method="post">
     <label for="pillName">약품명:</label>
     <input type="text" id="pillName" name="pillName">
     <button type="submit">검색</button>
+</form>
+
+<br>
+<h2>약품 정보</h2>
 <c:choose>
-    <c:when test="${not empty pillInfo}">
-        <h2>약품 정보</h2>
-        <ul>
-            <li>약품명: ${pillInfo.itemName}</li>
-            <li>제조사: ${pillInfo.entpName}</li>
-            <li>효능: ${pillInfo.efcyQesitm}</li>
-            <!-- 여기에 이미지를 표시하는 부분을 추가할 수 있습니다 -->
-        </ul>
+    <c:when test="${not empty pillInfoList}">
+        <c:forEach var="pillInfo" items="${pillInfoList}">
+            <ul>
+                <li>약품명: ${pillInfo.itemName}</li>
+                <li>제조사: ${pillInfo.entpName}</li>
+                <li>효능: ${pillInfo.efcyQesitm}</li>
+                <li>이미지: <br>
+                    <img alt="이미지가 없습니다." src="${pillInfo.thumbnail}">
+                </li>
+            </ul>
+        </c:forEach>
     </c:when>
     <c:otherwise>
         <p>검색된 약품 정보가 없습니다.</p>
     </c:otherwise>
 </c:choose>
-</form>
 
 
 <%-- <form action="/menu/register" method="post">
