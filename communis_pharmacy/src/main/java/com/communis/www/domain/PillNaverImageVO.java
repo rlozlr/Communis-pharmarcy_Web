@@ -11,11 +11,10 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class PillNaverEncycVO {
+public class PillNaverImageVO {
 
 	private String title;
 	private String link;
-	//private String description;
 	private String thumbnail;
 	private String sizeheight;
 	private String sizewidth;

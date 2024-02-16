@@ -20,7 +20,7 @@ pill_id BIGINT NOT NULL,
 item_name VARCHAR(256) NOT NULL,
 entp_name VARCHAR(256) NOT NULL,
 efcy_qesitm VARCHAR(256) NOT NULL,
-thumbnail VARCHAR(256),
+thumbnail TEXT,
 pill_sell BIGINT DEFAULT 0,
 pill_dibs BIGINT DEFAULT 0,
 PRIMARY KEY(pill_id)

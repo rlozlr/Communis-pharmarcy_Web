@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.communis.www.domain.PillNaverEncycVO;
+import com.communis.www.domain.PillNaverImageVO;
 import com.communis.www.domain.PillNaverResultVO;
 import com.communis.www.domain.PillNaverShopVO;
 import com.communis.www.domain.PillVO;
@@ -63,39 +63,26 @@ public class PillInfoApiController {
                 }
                 
                 List<String> jsonResponseList = publicResponse.getBody();
+                
                 JSONObject publicJson = new JSONObject(jsonResponseList.get(i));
                 String itemName = publicJson.getString("itemName");
                 String entpName = publicJson.getString("entpName");
                 String efcyQesitm = publicJson.getString("efcyQesitm");
                 String thumbnail = fetchThumbnailFromNaverAPI(itemName, entpName);
-//                String thumbnail = publicJson.optString("itemImage", null); // "itemImage" 필드가 없거나 null인 경우 빈 문자열 반환
-//                // "itemImage" 필드가 null이거나 빈 문자열인 경우 네이버 API에서 썸네일 가져오기
-//                if (thumbnail == null || thumbnail.isEmpty()) {
-//                	// 네이버 API 호출을 통해 썸네일 가져오기
-//                	log.info(">>>이름 확인 >>>> {}",itemName);
-//                    thumbnail = fetchThumbnailFromNaverAPI(itemName, entpName);
-//                    log.info(">>>이미지 확인 >>>> {}",thumbnail);
-//                	//thumbnail = fetchImageFromNaverAPI(itemName, entpName);
-//                	
-//                    // 네이버 응답이 null이거나 비어 있는 경우 처리
-//                    if (thumbnail == null || thumbnail.isEmpty()) {
-//                        log.error("Empty or null response received from Naver API");
-//                        thumbnail = "이미지가 없습니다.";
-//                    }
-//                }
-                    
+
                 // PillVO 객체 생성 및 데이터 채우기
                 PillVO pillInfo = new PillVO(itemName, entpName, efcyQesitm, thumbnail);
                 pillInfoList.add(pillInfo);
             }
-            
+
             return pillInfoList;
+            
         } catch (Exception e) {
-            log.error("Error while fetching pill data: {}", e.getMessage());
-            return null;
-        }
-    }
-    
+        	log.error("Error while fetching pill data: {}", e.getMessage());
+	        return null;
+	    }
+	}
+
     private String publicApi(int page, String pillName) {
     	
         try {
@@ -177,8 +164,8 @@ public class PillInfoApiController {
 			// 네이버 API 호출을 위한 URI 생성
 			URI naverUri = UriComponentsBuilder
 	    		.fromUriString("https://openapi.naver.com")
-	    		.path("/v1/search/shop.json")
-	            .queryParam("query", itemName + " " + entpName)
+	    		.path("/v1/search/image")
+	            .queryParam("query", itemName + " " + entpName + "소개")
 	            .encode()
 	            .build()
 	            .toUri();
@@ -193,31 +180,75 @@ public class PillInfoApiController {
 			RestTemplate restTemplate = new RestTemplate();
 			ResponseEntity<String> resp = restTemplate.exchange(req, String.class);
 			
+	        // JSON 응답을 파싱하여 PillNaverResultVO 객체 반환
 			ObjectMapper om = new ObjectMapper();
 			PillNaverResultVO resultVO = null;
 
 			try {
 			    resultVO = om.readValue(resp.getBody(), PillNaverResultVO.class);
+
 			} catch (JsonMappingException e) {
 			    e.printStackTrace();
+
 			} catch (JsonProcessingException e) {
 			    e.printStackTrace();
 			}
 
-			List<PillNaverShopVO> shopList =resultVO.getItems();
-			
-			if (shopList != null && !shopList.isEmpty()) {
+			List<PillNaverImageVO> imgList =resultVO.getItems();
+
+			if (imgList != null && !imgList.isEmpty()) {
 			    // 첫 번째 아이템의 썸네일 정보만 추출
-			    String thumbnail = shopList.get(0).getImage();
+			    String thumbnail = imgList.get(0).getThumbnail();
 			    return thumbnail;
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 		return null;
 	}
+    
+//	private String fetchThumbnailFromNaverAPI(String itemName, String entpName) {
+//		
+//		try {
+//			// 네이버 API 호출을 위한 URI 생성
+//			URI naverUri = UriComponentsBuilder
+//	    		.fromUriString("https://openapi.naver.com")
+//	    		.path("/v1/search/shop.json")
+//	            .queryParam("query", itemName + " " + entpName)
+//	            .encode()
+//	            .build()
+//	            .toUri();
+//			
+//			
+//			RequestEntity<Void> req = RequestEntity
+//                    .get(naverUri)
+//                    .header("X-Naver-Client-Id", clientId)
+//                    .header("X-Naver-Client-Secret", clientSecret)
+//                    .build();
+//			
+//			RestTemplate restTemplate = new RestTemplate();
+//			ResponseEntity<String> resp = restTemplate.exchange(req, String.class);
+//			
+//	        // JSON 응답을 파싱하여 PillNaverResultVO 객체 반환
+//	        ObjectMapper om = new ObjectMapper();
+//	        PillNaverResultVO resultVO = om.readValue(resp.getBody(), PillNaverResultVO.class);
+//	        
+//	        String thumbnail = null;
+//			List<PillNaverShopVO> shopList =resultVO.getItems();
+//	        for (PillNaverShopVO shop : shopList) {
+//				thumbnail = shop.getImage();
+//	        }
+//	        return thumbnail; // 이미지 URL을 담은 리스트 반환
+//	        
+//	    } catch (Exception e) {
+//	        log.error("Error while fetching thumbnails from Naver API: {}", e.getMessage());
+//	        return "Error while fetching thumbnails from Naver API"; // 에러 발생 시 빈 리스트 반환
+//	    }
+//	}
+			
+
 	
     private int getPillTotalCount(String pillName) {
         try {

@@ -18,5 +18,5 @@ public class PillNaverResultVO {
 	private int total;
 	private int start;
 	private int display;
-	private List<PillNaverShopVO> items;
+	private List<PillNaverImageVO> items;
 }
