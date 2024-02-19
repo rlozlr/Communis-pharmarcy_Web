@@ -10,4 +10,10 @@
         VALUES (#{itemName}, #{entpName}, #{efcyQesitm}, #{thumbnail})
 	</insert>
 	
+	<select id="findByItem" resultType="int">
+		SELECT COUNT(*) FROM pill
+		WHERE item_name = #{itemName}
+		AND entp_name = #{entpName}
+	</select>
+	
 </mapper>

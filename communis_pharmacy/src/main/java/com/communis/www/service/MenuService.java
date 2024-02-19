@@ -6,4 +6,6 @@ public interface MenuService {
 
 	void insert(PillVO pvo);
 
+	int findByItem(String itemName, String entpName);
+
 }
