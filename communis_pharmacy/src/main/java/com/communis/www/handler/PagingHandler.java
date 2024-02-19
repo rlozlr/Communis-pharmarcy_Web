@@ -32,5 +32,5 @@ public class PagingHandler {
 		this.prev = startPage > 1;
 		this.next = this.endPage < realEndPage;
 	}
-	
+		
 }

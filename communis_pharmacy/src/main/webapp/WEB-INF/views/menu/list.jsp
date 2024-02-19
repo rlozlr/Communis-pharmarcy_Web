@@ -13,9 +13,9 @@
 				<c:set value="${ph.pgvo.type }" var="typed"></c:set>
 				<select class="form-select" name="type" id="inputGroupSelect01">
 					<option ${typed eq null ? 'selected' : '' }>선택</option>
-					<option value ="item" ${typed eq 'item' ? 'selected' : '' }>제품명</option>
-					<option value ="entp" ${typed eq 'entp' ? 'selected' : '' }>제조사</option>
-					<option value ="all" ${typed eq 'itementp' ? 'selected' : '' }>전체</option>
+					<option value ="p" ${typed eq 'p' ? 'selected' : '' }>제품명</option>
+					<option value ="e" ${typed eq 'e' ? 'selected' : '' }>제조사</option>
+					<option value ="pe" ${typed eq 'pe' ? 'selected' : '' }>전체</option>
 				</select>
 				<input type="hidden" name="pageNo" value="1">
 				<input type="hidden" name="qty" value="${ph.pgvo.qty }">
@@ -45,7 +45,10 @@
 			<c:forEach items="${list }" var="pvo">
 				<tr>
 					<th scope="row">${pvo.pillId}</th>
-					<td><a href="#">${pvo.itemName}</a> <img alt="등록된 이미지가 없습니다." src="${pvo.thumbnail}"></td>
+					<td>
+						<a href="#">${pvo.itemName}</a>
+						<img alt="등록된 이미지가 없습니다." src="${pvo.thumbnail}">
+					</td>
 					<td>${pvo.entpName}</td>
 					<td>${pvo.pillDibs}</td>
 					<td>${pvo.pillSell}</td>
@@ -69,7 +72,9 @@
 				</li>
 			</c:forEach>
 			<li class="page-item ${(ph.next eq false) ? 'disabled' : '' }">
-				<a class="page-link" href="/menu/list?pageNo=${ph.endPage+1 }&qty=${ph.pgvo.qty}&type=${ph.pgvo.type}&keyword=${ph.pgvo.keyword}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+				<a class="page-link" 
+					href="/menu/list?pageNo=${ph.endPage+1 }&qty=${ph.pgvo.qty}&type=${ph.pgvo.type}&keyword=${ph.pgvo.keyword}" 
+					aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
 			</li>
 		</ul>
 	</nav>

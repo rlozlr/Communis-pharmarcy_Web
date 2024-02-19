@@ -12,13 +12,7 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.XML;
-import org.json.simple.parser.JSONParser;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,9 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.communis.www.domain.PillNaverImageVO;
 import com.communis.www.domain.PillNaverResultVO;
-import com.communis.www.domain.PillNaverShopVO;
 import com.communis.www.domain.PillVO;
-import com.communis.www.service.PillService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

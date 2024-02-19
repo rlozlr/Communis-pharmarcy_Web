@@ -89,9 +89,12 @@ public class MenuController {
 	@GetMapping("/list")
 	public void list (Model model, PagingVO pgvo) {
 
-		log.info(">>> pgvo >>> {}", pgvo);
+		log.info(">>> pgvo Type >>> {}", pgvo.getType());
+		log.info(">>> pgvo Keyword >>> {}", pgvo.getKeyword());
 		List<PillVO> list = msv.getList(pgvo);
+		log.info(">>> list >>> {}", list);
 		int totalCount = msv.totalCount(pgvo);
+		log.info(">>> totalCount >>> {}", totalCount);
 		PagingHandler ph = new PagingHandler(pgvo, totalCount);
 		model.addAttribute("list", list);
 		model.addAttribute("ph", ph);

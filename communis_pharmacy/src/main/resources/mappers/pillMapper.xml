@@ -19,7 +19,7 @@
 	<select id="getList" resultType="com.communis.www.domain.PillVO">
 		SELECT * FROM pill
 		<include refid="search"></include>
-		ORDER BY pill_id desc
+		ORDER BY pill_id DESC
 		LIMIT #{startPage}, #{qty}
 	</select>
 	
@@ -30,15 +30,15 @@
 	
 	<sql id="search">
 		<if test="type != null">
-			<trim prefix="WHERE (" suffix=")" prefixOverrides="or">
+			<trim prefix="WHERE (" suffix=")" prefixOverrides="OR">
 				<foreach collection="typeToArray" item="type">
 					<trim prefix="or">
 						<choose>
-							<when test="type == 'item'.toString()">
-								itemName like concat('%',#{keyword}, '%')
+							<when test="type == 'p'.toString()">
+								item_name LIKE CONCAT('%', #{keyword}, '%')
 							</when>
-							<when test="type == 'entp'.toString()">
-								entpName like concat('%', #{keyword}, '%')
+							<when test="type == 'e'.toString()">
+								entp_name LIKE CONCAT('%', #{keyword}, '%')
 							</when>
 						</choose>
 					</trim>
@@ -46,5 +46,6 @@
 			</trim>
 		</if>
 	</sql>
+
 	
 </mapper>
