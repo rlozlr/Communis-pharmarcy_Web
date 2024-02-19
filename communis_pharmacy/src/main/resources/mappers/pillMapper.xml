@@ -16,4 +16,35 @@
 		AND entp_name = #{entpName}
 	</select>
 	
+	<select id="getList" resultType="com.communis.www.domain.PillVO">
+		SELECT * FROM pill
+		<include refid="search"></include>
+		ORDER BY pill_id desc
+		LIMIT #{startPage}, #{qty}
+	</select>
+	
+	<select id="totalCount" resultType="int">
+	    SELECT COUNT(pill_id) FROM pill
+	    <include refid="search"></include>
+	</select>
+	
+	<sql id="search">
+		<if test="type != null">
+			<trim prefix="WHERE (" suffix=")" prefixOverrides="or">
+				<foreach collection="typeToArray" item="type">
+					<trim prefix="or">
+						<choose>
+							<when test="type == 'item'.toString()">
+								itemName like concat('%',#{keyword}, '%')
+							</when>
+							<when test="type == 'entp'.toString()">
+								entpName like concat('%', #{keyword}, '%')
+							</when>
+						</choose>
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
+	
 </mapper>

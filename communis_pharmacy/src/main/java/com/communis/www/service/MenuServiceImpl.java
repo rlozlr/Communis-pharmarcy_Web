@@ -1,7 +1,10 @@
 package com.communis.www.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.communis.www.domain.PagingVO;
 import com.communis.www.domain.PillVO;
 import com.communis.www.repository.MenuDAO;
 
@@ -32,6 +35,18 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public int findByItem(String itemName, String entpName) {
 		return mdao.findByItem(itemName, entpName);
+	}
+
+	@Override
+	public List<PillVO> getList(PagingVO pgvo) {
+		// TODO Auto-generated method stub
+		return mdao.getList(pgvo);
+	}
+
+	@Override
+	public int totalCount(PagingVO pgvo) {
+		// TODO Auto-generated method stub
+		return mdao.totalCount(pgvo);
 	}
 	
 	

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.communis.www.domain.PagingVO;
 import com.communis.www.domain.PillVO;
+import com.communis.www.handler.PagingHandler;
 import com.communis.www.service.MenuService;
 
 import lombok.RequiredArgsConstructor;
@@ -83,4 +85,17 @@ public class MenuController {
             return "isContain"; // 일부 약품은 이미 존재함
         }
     }
+    
+	@GetMapping("/list")
+	public void list (Model model, PagingVO pgvo) {
+
+		log.info(">>> pgvo >>> {}", pgvo);
+		List<PillVO> list = msv.getList(pgvo);
+		int totalCount = msv.totalCount(pgvo);
+		PagingHandler ph = new PagingHandler(pgvo, totalCount);
+		model.addAttribute("list", list);
+		model.addAttribute("ph", ph);
+	}
+    
+    
 }
