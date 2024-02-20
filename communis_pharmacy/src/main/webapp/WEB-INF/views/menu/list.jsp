@@ -37,25 +37,74 @@
 				<th scope="col">#</th>
 				<th scope="col">제품명</th>
 				<th scope="col">제조사</th>
+				<th scope="col">가격</th>
 				<th scope="col">찜</th>
 				<th scope="col">판매수</th>
+				<th scope="col">재고</th>
+				<th scope="col"></th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${list }" var="pvo">
-				<tr>
+				<tr data-pillid="${pvo.pillId}" data-itemname="${pvo.itemName}" data-entpname="${pvo.entpName}" 
+					data-pillprice="${pvo.pillPrice}" data-pillstock="${pvo.pillStock}">
 					<th scope="row">${pvo.pillId}</th>
 					<td>
-						<a href="#">${pvo.itemName}</a>
 						<img alt="등록된 이미지가 없습니다." src="${pvo.thumbnail}">
+						<a href="#">${pvo.itemName}</a>
 					</td>
 					<td>${pvo.entpName}</td>
+					<td>${pvo.pillPrice}</td>
 					<td>${pvo.pillDibs}</td>
 					<td>${pvo.pillSell}</td>
+					<td>${pvo.pillStock}</td>
+					<td>
+						<button type="button" id="showUpdateModalBtn" class="btn btn-outline-dark btn-sm showUpdateModalBtn"
+							data-bs-toggle="modal" data-bs-target="#updateModal">제품관리</button>
+						<a href="/menu/remove?pillId=${pvo.pillId }">
+							<button type="button" id="invenDelBtn" class="btn btn-outline-danger btn-sm">제품삭제</button>
+						</a>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+	
+	<!-- 모달 -->
+	<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="updateModalLabel">제품 관리</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	      	<input type="hidden" id="pillId" name="pillId">
+	        <div class="mb-3">
+	          <label for="itemName" class="form-label">제품명</label>
+	          <input type="text" id="itemName" class="form-control">
+	        </div>
+	        <div class="mb-3">
+	          <label for="entpName" class="form-label">제조사</label>
+	          <input type="text" id="entpName" class="form-control">
+	        </div>
+	        <div class="mb-3">
+	          <label for="pillPrice" class="form-label">가격</label>
+	          <input type="number" id="pillPrice" class="form-control" placeholder="숫자만 입력">
+	        </div>
+	        <div class="mb-3">
+	          <label for="pillStock" class="form-label">재고수량</label>
+	          <input type="number" id="pillStock" class="form-control" placeholder="숫자만 입력">
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-outline-primary" id="updateBtn">저장</button>
+	        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">닫기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
 		
 	<!-- 페이징 라인  -->
 	<nav aria-label="Page navigation example">
@@ -79,5 +128,5 @@
 		</ul>
 	</nav>
 </div>
-
+<script src="/resources/js/menu/list.js"></script>
 <jsp:include page="../layout/footer.jsp"></jsp:include>

@@ -21,7 +21,12 @@ item_name VARCHAR(256) NOT NULL,
 entp_name VARCHAR(256) NOT NULL,
 efcy_qesitm VARCHAR(256) NOT NULL,
 thumbnail TEXT,
+pill_price INT DEFAULT 0,
 pill_sell BIGINT DEFAULT 0,
 pill_dibs BIGINT DEFAULT 0,
+pill_stock BIGINT DEFAULT 0,
+pill_reg DATETIME DEFAULT NOW(),
+pill_mod DATETIME DEFAULT NOW(),
+pill_status VARCHAR(1) DEFAULT 'Y',
 PRIMARY KEY(pill_id)
 );

@@ -48,6 +48,18 @@ public class MenuServiceImpl implements MenuService {
 		// TODO Auto-generated method stub
 		return mdao.totalCount(pgvo);
 	}
+
+	@Override
+	public int update(PillVO pvo) {
+		// TODO Auto-generated method stub
+		return mdao.update(pvo);
+	}
+
+	@Override
+	public void delete(PillVO pvo) {
+		// TODO Auto-generated method stub
+		mdao.delete(pvo);
+	}
 	
 	
 }

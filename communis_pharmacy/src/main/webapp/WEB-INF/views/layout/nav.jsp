@@ -17,13 +17,13 @@
           <a class="nav-link active" aria-current="page" href="#">약사 TALK</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/pillRank/list">인기 약품</a>
+          <a class="nav-link" href="/pillRank/list">인기약품</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/menu/register">약품등록</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/menu/list">약국 약품관리</a>
+          <a class="nav-link" href="/menu/list">약품관리</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">가까운 약국</a>

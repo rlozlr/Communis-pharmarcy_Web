@@ -15,4 +15,8 @@ public interface MenuService {
 
 	int totalCount(PagingVO pgvo);
 
+	int update(PillVO pvo);
+
+	void delete(PillVO pvo);
+
 }

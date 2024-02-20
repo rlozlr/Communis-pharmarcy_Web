@@ -18,6 +18,7 @@
 	
 	<select id="getList" resultType="com.communis.www.domain.PillVO">
 		SELECT * FROM pill
+		WHERE pill_status = 'Y'
 		<include refid="search"></include>
 		ORDER BY pill_id DESC
 		LIMIT #{startPage}, #{qty}
@@ -27,6 +28,22 @@
 	    SELECT COUNT(pill_id) FROM pill
 	    <include refid="search"></include>
 	</select>
+	
+	<update id="update">
+		UPDATE pill SET
+		item_name = #{itemName},
+		entp_name = #{entpName},
+		pill_stock = #{pillStock},
+		pill_price = #{pillPrice},
+		pill_mod = NOW()
+		WHERE pill_id = #{pillId}
+	</update>
+	
+	<delete id="delete">
+		UPDATE pill SET
+		pill_status = 'N'
+		WHERE pill_id = #{pillId}
+	</delete>
 	
 	<sql id="search">
 		<if test="type != null">
