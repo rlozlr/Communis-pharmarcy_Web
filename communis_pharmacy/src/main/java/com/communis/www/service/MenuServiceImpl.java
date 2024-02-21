@@ -3,10 +3,14 @@ package com.communis.www.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.communis.www.domain.MenuDTO;
 import com.communis.www.domain.PagingVO;
+import com.communis.www.domain.PillImgVO;
 import com.communis.www.domain.PillVO;
 import com.communis.www.repository.MenuDAO;
+import com.communis.www.repository.PillImgDAO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MenuServiceImpl implements MenuService {
 
 	private final MenuDAO mdao;
-
+	private final PillImgDAO pidao;
+	
 	@Override
 	public void insert(PillVO pvo) {
 		
@@ -60,6 +65,15 @@ public class MenuServiceImpl implements MenuService {
 		// TODO Auto-generated method stub
 		mdao.delete(pvo);
 	}
-	
+
+	@Transactional
+	@Override
+	public MenuDTO getDetail(long pillId) {
+		// TODO Auto-generated method stub
+		PillVO pvo = mdao.getDetail(pillId);
+		List<PillImgVO> pillImgList = pidao.getImgList(pillId);
+		MenuDTO mdto = new MenuDTO(pvo, pillImgList);
+		return mdto;
+	}
 	
 }

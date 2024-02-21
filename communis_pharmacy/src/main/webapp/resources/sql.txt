@@ -30,3 +30,18 @@ pill_mod DATETIME DEFAULT NOW(),
 pill_status VARCHAR(1) DEFAULT 'Y',
 PRIMARY KEY(pill_id)
 );
+
+-- 2024-02-21
+#약품사진 Table
+CREATE TABLE pill_image (
+pill_img_id VARCHAR(256) NOT NULL,
+pill_img_save_dir VARCHAR(256) NOT NULL,
+pill_img_name VARCHAR(256) NOT NULL,
+pill_img_type TINYINT(1) DEFAULT 0,
+pill_img_size BIGINT,
+pill_img_reg DATETIME DEFAULT NOW(),
+pill_img_mod DATETIME DEFAULT NOW(),
+pill_img_status VARCHAR(256) DEFAULT 'Y',
+pill_id BIGINT,
+PRIMARY KEY(pill_img_id)
+);

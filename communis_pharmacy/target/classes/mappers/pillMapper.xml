@@ -14,6 +14,7 @@
 		SELECT COUNT(*) FROM pill
 		WHERE item_name = #{itemName}
 		AND entp_name = #{entpName}
+		AND pill_status = 'Y'
 	</select>
 	
 	<select id="getList" resultType="com.communis.www.domain.PillVO">
@@ -26,6 +27,7 @@
 	
 	<select id="totalCount" resultType="int">
 	    SELECT COUNT(pill_id) FROM pill
+	    WHERE pill_status = 'Y'
 	    <include refid="search"></include>
 	</select>
 	
@@ -44,6 +46,11 @@
 		pill_status = 'N'
 		WHERE pill_id = #{pillId}
 	</delete>
+	
+	<select id="getDetail" resultType="com.communis.www.domain.PillVO">
+		SELECT * FROM pill 
+		WHERE pill_id = #{pillId}
+	</select>
 	
 	<sql id="search">
 		<if test="type != null">

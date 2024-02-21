@@ -51,7 +51,7 @@
 					<th scope="row">${pvo.pillId}</th>
 					<td>
 						<img alt="등록된 이미지가 없습니다." src="${pvo.thumbnail}">
-						<a href="#">${pvo.itemName}</a>
+						<a href="/menu/detail?pillId=${pvo.pillId}">${pvo.itemName}</a>
 					</td>
 					<td>${pvo.entpName}</td>
 					<td>${pvo.pillPrice}</td>
@@ -61,7 +61,7 @@
 					<td>
 						<button type="button" id="showUpdateModalBtn" class="btn btn-outline-dark btn-sm showUpdateModalBtn"
 							data-bs-toggle="modal" data-bs-target="#updateModal">제품관리</button>
-						<a href="/menu/remove?pillId=${pvo.pillId }">
+						<a href="/menu/remove?pillId=${pvo.pillId}">
 							<button type="button" id="invenDelBtn" class="btn btn-outline-danger btn-sm">제품삭제</button>
 						</a>
 					</td>
@@ -128,5 +128,6 @@
 		</ul>
 	</nav>
 </div>
+
 <script src="/resources/js/menu/list.js"></script>
 <jsp:include page="../layout/footer.jsp"></jsp:include>

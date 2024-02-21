@@ -18,10 +18,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.communis.www.domain.MenuDTO;
 import com.communis.www.domain.PagingVO;
+import com.communis.www.domain.PillImgVO;
 import com.communis.www.domain.PillVO;
 import com.communis.www.handler.PagingHandler;
+import com.communis.www.handler.PillImgHandler;
 import com.communis.www.service.MenuService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,6 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MenuController {
 
 	private final MenuService msv;
+	private final PillImgHandler pih;
 	
 	@Autowired
     private PillInfoApiController pillInfoApiController;
@@ -111,6 +117,20 @@ public class MenuController {
 		return "redirect:/menu/list";
 	}
 	
-    
+	@GetMapping({"/detail", "/modify"})
+	public void detail (Model model, @RequestParam("pillId") long pillId) {
+		model.addAttribute("mdto", msv.getDetail(pillId));
+	}
+	
+	@PostMapping("/modify")
+	public String modify (PillVO pvo, RedirectAttributes re, @RequestParam(name="files", required = false) MultipartFile[] files) {
+		List<PillImgVO> flist = null;
+		if(files[0].getSize() > 0) {
+			flist = pih.uploadFiles(files);
+		}
+		int isOk = msv.modify(new MenuDTO(pvo, flist));
+		re.addAttribute("pvo", pvo.getPillId());
+		return "redirect:/board/detail";
+	}
     
 }

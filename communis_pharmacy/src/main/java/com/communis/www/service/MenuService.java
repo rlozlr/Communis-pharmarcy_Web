@@ -2,6 +2,7 @@ package com.communis.www.service;
 
 import java.util.List;
 
+import com.communis.www.domain.MenuDTO;
 import com.communis.www.domain.PagingVO;
 import com.communis.www.domain.PillVO;
 
@@ -18,5 +19,7 @@ public interface MenuService {
 	int update(PillVO pvo);
 
 	void delete(PillVO pvo);
+
+	MenuDTO getDetail(long pillId);
 
 }

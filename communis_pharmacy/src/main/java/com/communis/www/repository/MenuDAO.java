@@ -23,4 +23,6 @@ public interface MenuDAO {
 
 	void delete(PillVO pvo);
 
+	PillVO getDetail(long pillId);
+
 }
