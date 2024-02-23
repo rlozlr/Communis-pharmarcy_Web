@@ -9,5 +9,20 @@
         SELECT * FROM pill_image 
         WHERE pill_id = #{pillId}
     </select>
+    
+    <insert id="insertFile">
+    	INSERT INTO pill_image (pill_img_id, pill_img_save_dir, pill_img_name, pill_img_type, pill_img_size, pill_id )
+		VALUES (#{pillImgId}, #{pillImgSaveDir}, #{pillImgName}, #{pillImgType}, #{pillImgSize}, #{pillId})
+    </insert>
+    
+    <update id="updateFile">
+    	UPDATE TABLE pill_image
+    	pill_img_id = #{pillImgId},
+    	pill_img_save_dir = #{pillImgSaveDir},
+    	pill_img_name = #{pillImgName},
+    	pill_img_type = #{pillImgType},
+    	pill_img_size = #{pillImgSize},
+    	WHERE pill_id = #{pillId}
+    </update>
 
 </mapper>

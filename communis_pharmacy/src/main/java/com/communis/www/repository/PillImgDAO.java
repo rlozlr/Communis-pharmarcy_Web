@@ -8,4 +8,6 @@ public interface PillImgDAO {
 
 	List<PillImgVO> getImgList(long pillId);
 
+	int insertFile(PillImgVO pivo);
+
 }

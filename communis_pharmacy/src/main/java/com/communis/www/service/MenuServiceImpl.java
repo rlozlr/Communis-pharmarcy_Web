@@ -76,4 +76,21 @@ public class MenuServiceImpl implements MenuService {
 		return mdto;
 	}
 	
+	@Transactional
+	@Override
+	public int modify(MenuDTO mdto) {
+		int isOk = mdao.update(mdto.getPvo());
+		if(mdto.getPillImgList() == null) {
+			return isOk;
+		}
+		
+		if(isOk > 0 && mdto.getPillImgList().size() > 0) {
+			for(PillImgVO pivo : mdto.getPillImgList()) {
+				pivo.setPillId(mdto.getPvo().getPillId());
+				isOk += pidao.insertFile(pivo);
+			}
+		}
+		return isOk;
+	}
+	
 }

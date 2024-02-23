@@ -35,11 +35,6 @@
 			id="efcyQesitm" readonly value="${pvo.efcyQesitm }">
 	</div>
 	<div class="mb-3">
-		<label for="thumbnail" class="form-label">제품사진</label>
-		<img src="${pvo.thumbnail }" name="thumbnail" class="form-control" 
-			id="thumbnail" style="max-width: 10%;" readonly>
-	</div>
-	<div class="mb-3">
 		<label for="pillDibs" class="form-label">찜</label>
 		<input type="text" name="pillDibs" class="form-control" 
 			id="pillDibs" readonly value="${pvo.pillDibs }">
@@ -53,6 +48,11 @@
 		<label for="pillStock" class="form-label">재고</label>
 		<input type="text" name="pillStock" class="form-control" 
 			id="pillStock" readonly value="${pvo.pillStock }">
+	</div>
+	<div class="mb-3">
+		<label for="thumbnail" class="form-label">제품사진</label>
+		<img src="${pvo.thumbnail }" name="thumbnail" class="form-control" 
+			id="thumbnail" style="max-width: 10%;">
 	</div>
 	
  	<!-- 파일 line -->
@@ -82,7 +82,7 @@
 						</c:choose>
 						<div class="ms-2 me-auto">
 							<div class="fw-bold">
-								${pivo.fileName}<br>
+								${pivo.pillImgName}<br>
 								<span class="badge rounded-pill text-bg-secondary">${pivo.pillImgSize }Byte</span>
 							</div>
 						</div>

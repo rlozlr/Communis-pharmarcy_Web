@@ -47,7 +47,7 @@
 		<tbody>
 			<c:forEach items="${list }" var="pvo">
 				<tr data-pillid="${pvo.pillId}" data-itemname="${pvo.itemName}" data-entpname="${pvo.entpName}" 
-					data-pillprice="${pvo.pillPrice}" data-pillstock="${pvo.pillStock}">
+					data-pillprice="${pvo.pillPrice}" data-pillstock="${pvo.pillStock}" data-thumbnail="${pvo.thumbnail}">
 					<th scope="row">${pvo.pillId}</th>
 					<td>
 						<img alt="등록된 이미지가 없습니다." src="${pvo.thumbnail}">
@@ -60,7 +60,7 @@
 					<td>${pvo.pillStock}</td>
 					<td>
 						<button type="button" id="showUpdateModalBtn" class="btn btn-outline-dark btn-sm showUpdateModalBtn"
-							data-bs-toggle="modal" data-bs-target="#updateModal">제품관리</button>
+							data-bs-toggle="modal" data-bs-target="#updateModal">간편관리</button>
 						<a href="/menu/remove?pillId=${pvo.pillId}">
 							<button type="button" id="invenDelBtn" class="btn btn-outline-danger btn-sm">제품삭제</button>
 						</a>
@@ -79,6 +79,7 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
+	      	
 	      	<input type="hidden" id="pillId" name="pillId">
 	        <div class="mb-3">
 	          <label for="itemName" class="form-label">제품명</label>
@@ -130,4 +131,5 @@
 </div>
 
 <script src="/resources/js/menu/list.js"></script>
+<script src="/resources/js/menu/menuImage.js"></script>
 <jsp:include page="../layout/footer.jsp"></jsp:include>

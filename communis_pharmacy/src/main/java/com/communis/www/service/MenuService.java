@@ -22,4 +22,6 @@ public interface MenuService {
 
 	MenuDTO getDetail(long pillId);
 
+	int modify(MenuDTO mdto);
+
 }

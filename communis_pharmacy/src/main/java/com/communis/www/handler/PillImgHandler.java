@@ -20,7 +20,7 @@ import net.coobird.thumbnailator.Thumbnails;
 @Component	// 사용자 클래스를 bean으로 등록
 public class PillImgHandler {
 
-	private final String UP_DIR = "D:\\_basicProject\\_fileUpload";
+	private final String UP_DIR = "D:\\_pharmacyProject\\_fileUpload";
 	
 	public List<PillImgVO> uploadFiles(MultipartFile[] files) {
 		List<PillImgVO> pillImgList = new ArrayList<>();

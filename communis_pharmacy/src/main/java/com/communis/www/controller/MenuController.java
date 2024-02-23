@@ -1,7 +1,9 @@
 package com.communis.www.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -123,14 +125,14 @@ public class MenuController {
 	}
 	
 	@PostMapping("/modify")
-	public String modify (PillVO pvo, RedirectAttributes re, @RequestParam(name="files", required = false) MultipartFile[] files) {
-		List<PillImgVO> flist = null;
-		if(files[0].getSize() > 0) {
-			flist = pih.uploadFiles(files);
-		}
-		int isOk = msv.modify(new MenuDTO(pvo, flist));
-		re.addAttribute("pvo", pvo.getPillId());
-		return "redirect:/board/detail";
+	public String modify(PillVO pvo, RedirectAttributes re, @RequestParam(name = "pillImgName", required = false) MultipartFile[] files) {
+	    List<PillImgVO> flist = new ArrayList<>();
+	    if(files != null && files.length > 0 && files[0].getSize() > 0) {
+	        flist = pih.uploadFiles(files);
+	    }
+	    int isOk = msv.modify(new MenuDTO(pvo, flist));
+	    re.addAttribute("pvo", pvo.getPillId());
+	    return "redirect:/menu/detail";
 	}
     
 }

@@ -33,7 +33,7 @@ document.addEventListener('click', (e)=>{
             itemName : document.getElementById('itemName').value,
             entpName : document.getElementById('entpName').value,
             pillStock : document.getElementById('pillStock').value,
-            pillPrice : document.getElementById('pillPrice').value
+            pillPrice : document.getElementById('pillPrice').value,
         };
         updateInventory(updateInvetoryData).then(result =>{
             if(result == '1') {
@@ -65,4 +65,3 @@ async function updateInventory(updateInvetoryData) {
         console.log(error);
     }
 };
-
