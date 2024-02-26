@@ -100,3 +100,80 @@ function oneInsert() {
         }
     });
 }
+
+// 여기서부터 모달 시도
+// 약품 검색 버튼 클릭 시 모달 열기
+document.getElementById('pillSearchBtn').addEventListener('click', function() {
+    pillSearchModal();
+});
+
+// 재고관리 모달 열기
+function pillSearchModal() {
+    const updateModal = document.getElementById('pillSearchModal');
+    if (updateModal) {
+        updateModal.classList.add('show');
+        updateModal.style.display = 'block';
+    }
+};
+
+document.addEventListener('click',(e)=>{
+    console.log(e.target);
+    if(e.target.classList.contains('pillSearchBtn')) {
+        let itemName = document.getElementById('pillName').value;
+        console.log(itemName);
+        searchPillInfoFromAPI(itemName).then(result =>{
+            if(result == '1') {
+                displaySearchResults(result);
+            } else {
+                alert('검색 실패');
+                document.querySelector('.btn-close').click();
+            }
+        })
+    }
+});
+
+async function searchPillInfoFromAPI(itemName) {
+    try {
+        const url = `/menu/{itemName}`;
+        const config ={
+            method : 'GET', // GET 메소드로 변경
+            headers : {
+                'content-type' : 'application/json; charset=utf-8'
+            }
+        };
+        const resp = await fetch(url, config);
+        const result = await resp.text(); // 텍스트 데이터로 변환
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+function displaySearchResults(results) {
+    const modalBody = document.getElementById('pillSearchResults');
+    modalBody.innerHTML = ''; // 모달 내용 초기화
+    
+    if (results && results.length > 0) {
+        results.forEach(pillInfo => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${pillInfo.itemName}</td>
+                <td>${pillInfo.entpName}</td>
+                <td>${pillInfo.efcyQesitm}</td>
+                <td>
+                    <button type="button" class="btn btn-primary selectPillBtn"
+                        data-item-name="${pillInfo.itemName}"
+                        data-entp-name="${pillInfo.entpName}"
+                        data-efcy-qesitm="${pillInfo.efcyQesitm}">
+                        선택
+                    </button>
+                </td>
+            `;
+            modalBody.appendChild(row);
+        });
+    } else {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td colspan="4">검색된 약품 정보가 없습니다.</td>`;
+        modalBody.appendChild(row);
+    }
+}

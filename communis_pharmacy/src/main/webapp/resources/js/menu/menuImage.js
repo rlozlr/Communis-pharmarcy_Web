@@ -81,3 +81,18 @@ document.addEventListener('change',(e)=>{
         }
     }
 });
+
+
+async function removeFileToServer(pillId) {
+    try {
+        const url = "/menu/remove/" + pillId;
+        const config ={
+            method : "delete"
+        }
+        const resp = await fetch(url, config);
+        const result = await resp.text();
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+};

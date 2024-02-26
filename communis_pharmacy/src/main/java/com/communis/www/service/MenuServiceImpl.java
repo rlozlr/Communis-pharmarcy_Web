@@ -62,7 +62,7 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public void delete(PillVO pvo) {
-		// TODO Auto-generated method stub
+		pidao.deleteAll(pvo);
 		mdao.delete(pvo);
 	}
 
@@ -87,10 +87,16 @@ public class MenuServiceImpl implements MenuService {
 		if(isOk > 0 && mdto.getPillImgList().size() > 0) {
 			for(PillImgVO pivo : mdto.getPillImgList()) {
 				pivo.setPillId(mdto.getPvo().getPillId());
-				isOk += pidao.insertFile(pivo);
+				isOk += pidao.updateFile(pivo);
 			}
 		}
 		return isOk;
+	}
+
+	@Override
+	public int removeFile(String pill_img_id) {
+		// TODO Auto-generated method stub
+		return pidao.removeFile(pill_img_id);
 	}
 	
 }

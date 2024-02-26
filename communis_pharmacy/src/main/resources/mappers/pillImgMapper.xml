@@ -7,7 +7,8 @@
 
     <select id="getImgList" resultType="com.communis.www.domain.PillImgVO">
         SELECT * FROM pill_image 
-        WHERE pill_id = #{pillId}
+        WHERE pill_id = #{pillId} 
+        AND pill_img_status = 'Y'
     </select>
     
     <insert id="insertFile">
@@ -24,5 +25,17 @@
     	pill_img_size = #{pillImgSize},
     	WHERE pill_id = #{pillId}
     </update>
+    
+    <delete id="removeFile">
+    	UPDATE pill_image SET
+		pill_img_status = 'N'
+		WHERE pill_img_id = #{pillImgId}
+    </delete>
+    
+    <delete id="deleteAll">
+    	UPDATE pill_image SET
+		pill_img_status = 'N'
+		WHERE pill_id = #{pillId}
+    </delete>
 
 </mapper>

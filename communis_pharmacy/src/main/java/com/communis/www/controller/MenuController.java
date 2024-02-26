@@ -1,9 +1,7 @@
 package com.communis.www.controller;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,11 +48,18 @@ public class MenuController {
 	public void register () {}
 	
     @PostMapping("/register")
-    public void searchPill(@RequestParam String pillName, Model model) {
+    public void register(@RequestParam String pillName, Model model) {
     	// 약품명으로 약품 정보 검색
     	List<PillVO> pillInfoList = pillInfoApiController.fetchPillData(pillName);
         model.addAttribute("pillInfoList", pillInfoList);
     }
+    
+    @ResponseBody
+	@GetMapping(value="/menu/{itemName}", produces= MediaType.TEXT_PLAIN_VALUE)
+	public List<PillVO> searchPill(@PathVariable("itemName") String itemName) {
+		List<PillVO> pillInfoList = pillInfoApiController.fetchPillData(itemName);
+		return pillInfoList;
+	}
     
     @ResponseBody
     @PostMapping(value ="/insert", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
@@ -101,16 +106,19 @@ public class MenuController {
     
 	@GetMapping("/list")
 	public void list (Model model, PagingVO pgvo) {
-
-		log.info(">>> pgvo Type >>> {}", pgvo.getType());
-		log.info(">>> pgvo Keyword >>> {}", pgvo.getKeyword());
 		List<PillVO> list = msv.getList(pgvo);
-		log.info(">>> list >>> {}", list);
 		int totalCount = msv.totalCount(pgvo);
-		log.info(">>> totalCount >>> {}", totalCount);
 		PagingHandler ph = new PagingHandler(pgvo, totalCount);
 		model.addAttribute("list", list);
 		model.addAttribute("ph", ph);
+	}
+	
+	@PutMapping(value = "/update", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> edit(@RequestBody PillVO pvo) {
+		int isOk = msv.update(pvo);
+		return isOk > 0 ?
+				new ResponseEntity<String>("1", HttpStatus.OK) :
+					new ResponseEntity<String>("0", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@GetMapping("/remove")
@@ -133,6 +141,15 @@ public class MenuController {
 	    int isOk = msv.modify(new MenuDTO(pvo, flist));
 	    re.addAttribute("pvo", pvo.getPillId());
 	    return "redirect:/menu/detail";
+	}
+	
+	@DeleteMapping(value="/menu/{pill_img_id}", produces= MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> removeFile(@PathVariable("pill_img_id") String pill_img_id) {
+		int isOk = msv.removeFile(pill_img_id);
+		return isOk > 0 ?
+				new ResponseEntity<String>("1", HttpStatus.OK) :
+					new ResponseEntity<String>("0", HttpStatus.INTERNAL_SERVER_ERROR);
+				
 	}
     
 }

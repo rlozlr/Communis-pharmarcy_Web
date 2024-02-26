@@ -24,4 +24,6 @@ public interface MenuService {
 
 	int modify(MenuDTO mdto);
 
+	int removeFile(String pill_img_id);
+
 }
