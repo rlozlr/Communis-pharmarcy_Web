@@ -23,25 +23,27 @@ public class MenuServiceImpl implements MenuService {
 	private final MenuDAO mdao;
 	private final PillImgDAO pidao;
 	
+	@Transactional
 	@Override
-	public void insert(PillVO pvo) {
+	public int register(MenuDTO mdto) {
+		// TODO Auto-generated method stub
+		int isOk = mdao.insert(mdto.getPvo());
 		
-		// DB에 pill 정보 존재 여부 확인
-		int result = mdao.findByItem(pvo.getItemName(), pvo.getEntpName());
-		
-        // 이미 존재하는 경우 중복 저장을 방지하기 위해 처리합니다.
-        if (result > 0) {
-        	throw new IllegalStateException("이미 존재하는 약품입니다.");
-        }
-		
-		mdao.insert(pvo);
+		if (mdto.getPillImgList() == null || mdto.getPillImgList().isEmpty()) {
+			log.info(">>>>>>>>>>>>>here >>>>>>>>>>>");
+	        return isOk; // 등록 실패하거나 첨부 파일이 없는 경우 바로 리턴
+	    }
+		if(isOk > 0 && mdto.getPillImgList().size() > 0) {
+			log.info(">>>>>>>>>>>>>hey >>>>>>>>>>>");
+			long pillId = mdao.selectOnePillId();
+			for(PillImgVO pivo : mdto.getPillImgList()) {
+				pivo.setPillId(pillId);
+				isOk += pidao.insertFile(pivo);
+			}
+		}
+		return isOk;
 	}
-
-	@Override
-	public int findByItem(String itemName, String entpName) {
-		return mdao.findByItem(itemName, entpName);
-	}
-
+	
 	@Override
 	public List<PillVO> getList(PagingVO pgvo) {
 		// TODO Auto-generated method stub

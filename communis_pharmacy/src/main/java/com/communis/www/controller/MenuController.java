@@ -46,63 +46,28 @@ public class MenuController {
 
 	@GetMapping("/register")
 	public void register () {}
-	
-    @PostMapping("/register")
-    public void register(@RequestParam String pillName, Model model) {
-    	// 약품명으로 약품 정보 검색
-    	List<PillVO> pillInfoList = pillInfoApiController.fetchPillData(pillName);
-        model.addAttribute("pillInfoList", pillInfoList);
-    }
     
-    @ResponseBody
-	@GetMapping(value="/menu/{itemName}", produces= MediaType.TEXT_PLAIN_VALUE)
-	public List<PillVO> searchPill(@PathVariable("itemName") String itemName) {
-		List<PillVO> pillInfoList = pillInfoApiController.fetchPillData(itemName);
-		return pillInfoList;
+	@ResponseBody
+	@GetMapping(value="/{itemName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<PillVO>> searchPill(@PathVariable("itemName") String itemName) {
+	    List<PillVO> pillInfoList = pillInfoApiController.fetchPillData(itemName);
+	    log.info(">>> pillInfoList >>> {}", pillInfoList);
+	    if (pillInfoList != null) {
+	        return ResponseEntity.ok(pillInfoList);
+	    } else {
+	        return ResponseEntity.notFound().build();
+	    }
 	}
-    
-    @ResponseBody
-    @PostMapping(value ="/insert", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
-    public String insertMenu(@RequestBody PillVO pvo) {
-    	int result = msv.findByItem(pvo.getItemName(), pvo.getEntpName());
-    	
-    	if(result == 0) {
-    		msv.insert(pvo);
-    		return "success";
-    	} else if (result > 0) {
-    		return "duplicate";
-    	} else {
-    		return "-1";
-    	}
-    	
-    }
-    
-    @ResponseBody
-    @PostMapping("/insertSelected")
-    public String insertSelectedPills(@RequestBody List<PillVO> selectedItems) {
-        // 이미 등록된 약품들을 저장할 리스트
-        List<PillVO> alreadyRegisteredItems = new ArrayList<>();
-        List<PillVO> insertedItems = new ArrayList<>();
-        
-        // 선택된 약품 정보를 받아와서 데이터베이스에 저장
-        for (PillVO pvo : selectedItems) {
-            int result = msv.findByItem(pvo.getItemName(), pvo.getEntpName());
-            if (result > 0) {
-            	alreadyRegisteredItems.add(pvo);
-            } else {
-                msv.insert(pvo);
-                insertedItems.add(pvo);
-            }
-        }
-
-        if (alreadyRegisteredItems.isEmpty()) {
-            return "success"; // 모든 약품이 삽입됨
-        } else if (insertedItems.isEmpty()) {
-            return "duplicate"; // 모든 약품이 이미 존재함
-        } else {
-            return "isContain"; // 일부 약품은 이미 존재함
-        }
-    }
+	
+	@PostMapping("/register")
+	public String register(PillVO pvo, @RequestParam(name="file", required = false) MultipartFile file) {
+	    List<PillImgVO> pillImg = null;
+	    if(file != null && file.getSize() > 0) {
+	    	pillImg = pih.uploadFiles(new MultipartFile[]{file}); // 파일을 배열 형태로 변환하여 업로드
+	    }
+	    int isOk = msv.register(new MenuDTO(pvo, pillImg));
+	    return "redirect:/menu/list";
+	}
     
 	@GetMapping("/list")
 	public void list (Model model, PagingVO pgvo) {

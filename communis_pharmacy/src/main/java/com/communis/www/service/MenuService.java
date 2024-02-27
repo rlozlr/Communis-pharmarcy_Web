@@ -8,9 +8,7 @@ import com.communis.www.domain.PillVO;
 
 public interface MenuService {
 
-	void insert(PillVO pvo);
-
-	int findByItem(String itemName, String entpName);
+	int register(MenuDTO mdto);
 
 	List<PillVO> getList(PagingVO pgvo);
 
@@ -25,5 +23,6 @@ public interface MenuService {
 	int modify(MenuDTO mdto);
 
 	int removeFile(String pill_img_id);
+
 
 }

@@ -60,11 +60,12 @@ public class PillInfoApiController {
                 String itemName = publicJson.getString("itemName");
                 String entpName = publicJson.getString("entpName");
                 String efcyQesitm = publicJson.getString("efcyQesitm");
-               //String thumbnail = fetchThumbnailFromNaverAPI(itemName, entpName);
-                String thumbnail = "";
+                //String thumbnail = fetchThumbnailFromNaverAPI(itemName, entpName);
+                //String thumbnail = "";
 
                 // PillVO 객체 생성 및 데이터 채우기
-                PillVO pillInfo = new PillVO(itemName, entpName, efcyQesitm, thumbnail);
+                //PillVO pillInfo = new PillVO(itemName, entpName, efcyQesitm, thumbnail);
+                PillVO pillInfo = new PillVO(itemName, entpName, efcyQesitm);
                 pillInfoList.add(pillInfo);
             }
 

@@ -6,17 +6,20 @@
 <mapper namespace="com.communis.www.repository.MenuDAO">
 
 	<insert id="insert">
-	    INSERT INTO pill (item_name, entp_name, efcy_qesitm, thumbnail)
-        VALUES (#{itemName}, #{entpName}, #{efcyQesitm}, #{thumbnail})
+	    INSERT INTO pill (item_name, entp_name, efcy_qesitm, pill_price, pill_stock)
+        VALUES (#{itemName}, #{entpName}, #{efcyQesitm}, #{pillPrice}, #{pillStock})
 	</insert>
 	
-	<select id="findByItem" resultType="int">
-		SELECT COUNT(*) FROM pill
-		WHERE item_name = #{itemName}
-		AND entp_name = #{entpName}
-		AND pill_status = 'Y'
-	</select>
+	<update id="updateImg">
+		UPDATE pill
+		SET thumbnail = #{thumbnail}
+        WHERE pill_id = #{pillId}
+	</update>
 	
+	<select id="selectOnePillId">
+		SELECT MAX(pill_id) FROM pill
+	</select>
+		
 	<select id="getList" resultType="com.communis.www.domain.PillVO">
 		SELECT * FROM pill
 		WHERE pill_status = 'Y'

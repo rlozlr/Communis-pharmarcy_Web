@@ -17,4 +17,5 @@ public interface PillImgDAO {
 
 	void deleteAll(PillVO pvo);
 
+
 }
