@@ -51,7 +51,6 @@ public class MenuController {
 	@GetMapping(value="/{itemName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<PillVO>> searchPill(@PathVariable("itemName") String itemName) {
 	    List<PillVO> pillInfoList = pillInfoApiController.fetchPillData(itemName);
-	    log.info(">>> pillInfoList >>> {}", pillInfoList);
 	    if (pillInfoList != null) {
 	        return ResponseEntity.ok(pillInfoList);
 	    } else {
@@ -60,12 +59,12 @@ public class MenuController {
 	}
 	
 	@PostMapping("/register")
-	public String register(PillVO pvo, @RequestParam(name="file", required = false) MultipartFile file) {
-	    List<PillImgVO> pillImg = null;
-	    if(file != null && file.getSize() > 0) {
-	    	pillImg = pih.uploadFiles(new MultipartFile[]{file}); // 파일을 배열 형태로 변환하여 업로드
-	    }
-	    int isOk = msv.register(new MenuDTO(pvo, pillImg));
+	public String register(PillVO pvo, @RequestParam(name="files", required = false) MultipartFile[] files) {
+		List<PillImgVO> flist = null;
+		if(files[0].getSize() > 0) {
+			flist = pih.uploadFiles(files);
+		}
+	    int isOk = msv.register(new MenuDTO(pvo, flist));
 	    return "redirect:/menu/list";
 	}
     

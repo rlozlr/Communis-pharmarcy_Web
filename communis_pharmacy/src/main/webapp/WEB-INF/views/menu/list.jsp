@@ -50,6 +50,7 @@
 					data-pillprice="${pvo.pillPrice}" data-pillstock="${pvo.pillStock}" data-thumbnail="${pvo.thumbnail}">
 					<th scope="row">${pvo.pillId}</th>
 					<td>
+						<!--  <img alt="" src="/_fileUpload/th_${bvo.boardFile }"> -->
 						<img alt="등록된 이미지가 없습니다." src="${pvo.thumbnail}">
 						<a href="/menu/detail?pillId=${pvo.pillId}">${pvo.itemName}</a>
 					</td>

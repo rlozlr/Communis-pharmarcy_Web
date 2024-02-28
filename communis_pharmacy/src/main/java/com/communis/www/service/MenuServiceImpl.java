@@ -29,16 +29,20 @@ public class MenuServiceImpl implements MenuService {
 		// TODO Auto-generated method stub
 		int isOk = mdao.insert(mdto.getPvo());
 		
-		if (mdto.getPillImgList() == null || mdto.getPillImgList().isEmpty()) {
+		if (mdto.getPillImgList() == null) {
 			log.info(">>>>>>>>>>>>>here >>>>>>>>>>>");
 	        return isOk; // 등록 실패하거나 첨부 파일이 없는 경우 바로 리턴
 	    }
 		if(isOk > 0 && mdto.getPillImgList().size() > 0) {
 			log.info(">>>>>>>>>>>>>hey >>>>>>>>>>>");
 			long pillId = mdao.selectOnePillId();
+			log.info(">>>>>>>pill id >>>>>{}",pillId);
 			for(PillImgVO pivo : mdto.getPillImgList()) {
 				pivo.setPillId(pillId);
 				isOk += pidao.insertFile(pivo);
+				log.info(">>>>>>>pivo >>>>>{}",pivo);
+				String thumbnail = pivo.getPillImgName();
+				isOk += mdao.registerImg(thumbnail, pillId);
 			}
 		}
 		return isOk;

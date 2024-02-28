@@ -17,6 +17,8 @@ public interface MenuDAO {
 
 	long selectOnePillId();
 	
+	int registerImg(@Param("thumbnail") String thumbnail, @Param("pillId") long pillId);
+	
 	int updateImg(@Param("thumbnail") String thumbnail, @Param("pillId") long pillId);
 
 	int totalCount(PagingVO pgvo);
@@ -26,6 +28,7 @@ public interface MenuDAO {
 	void delete(PillVO pvo);
 
 	PillVO getDetail(long pillId);
+
 
 
 }

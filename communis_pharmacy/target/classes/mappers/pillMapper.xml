@@ -10,15 +10,22 @@
         VALUES (#{itemName}, #{entpName}, #{efcyQesitm}, #{pillPrice}, #{pillStock})
 	</insert>
 	
+	<update id="registerImg">
+		UPDATE pill
+		SET thumbnail = #{thumbnail}
+		WHERE pill_id = #{pillId}
+	</update>
+	
 	<update id="updateImg">
 		UPDATE pill
 		SET thumbnail = #{thumbnail}
         WHERE pill_id = #{pillId}
 	</update>
 	
-	<select id="selectOnePillId">
+	<select id="selectOnePillId" resultType="long">
 		SELECT MAX(pill_id) FROM pill
 	</select>
+	
 		
 	<select id="getList" resultType="com.communis.www.domain.PillVO">
 		SELECT * FROM pill
