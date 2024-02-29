@@ -51,10 +51,8 @@
 	</div>
 	<div class="mb-3">
 		<label for="thumbnail" class="form-label">제품사진</label>
-		<img src="${pvo.thumbnail }" name="thumbnail" class="form-control" 
-			id="thumbnail" style="max-width: 10%;">
-	</div>
-	
+<%-- 		<img src="${pvo.thumbnail }" name="thumbnail" class="form-control" 
+			id="thumbnail" style="max-width: 10%;"> --%>
  	<!-- 파일 line -->
 	<c:set value="${mdto.pillImgList}" var="pillImgList"></c:set>
 		<div class="col-12">
@@ -90,6 +88,8 @@
 				</c:forEach>
 			</ul>
 		</div> 
+	</div>
+	
 		
 	<a href="/menu/modify?pillId=${pvo.pillId }"><button type="submit" class="btn btn-success">수정</button></a> 
 	<a href="/menu/remove?pillId=${pvo.pillId }"><button type="button" class="btn btn-danger">삭제</button></a>

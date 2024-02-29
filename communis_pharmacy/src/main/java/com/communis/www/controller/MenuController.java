@@ -68,13 +68,29 @@ public class MenuController {
 	    return "redirect:/menu/list";
 	}
     
+//	@GetMapping("/list")
+//	public void list (Model model, PagingVO pgvo, @RequestParam("pillId") long pillId) {
+//		List<PillVO> list = msv.getList(pgvo);
+//		int totalCount = msv.totalCount(pgvo);
+//		PagingHandler ph = new PagingHandler(pgvo, totalCount);
+//		model.addAttribute("list", list);
+//		model.addAttribute("ph", ph);
+//		model.addAttribute("mdto", msv.getDetail(pillId));
+//	}
+	
 	@GetMapping("/list")
-	public void list (Model model, PagingVO pgvo) {
-		List<PillVO> list = msv.getList(pgvo);
-		int totalCount = msv.totalCount(pgvo);
-		PagingHandler ph = new PagingHandler(pgvo, totalCount);
-		model.addAttribute("list", list);
-		model.addAttribute("ph", ph);
+	public void list(Model model, PagingVO pgvo) {
+	    List<PillVO> list = msv.getList(pgvo);
+	    int totalCount = msv.totalCount(pgvo);
+	    PagingHandler ph = new PagingHandler(pgvo, totalCount);
+	    model.addAttribute("list", list);
+	    model.addAttribute("ph", ph);
+	    
+	    // PillImgVO 리스트를 가져와서 mdto에 추가
+	    List<PillImgVO> pillImgList = msv.getPillImgList();
+	    MenuDTO mdto = new MenuDTO();
+	    mdto.setPillImgList(pillImgList);
+	    model.addAttribute("mdto", mdto);
 	}
 	
 	@PutMapping(value = "/update", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
