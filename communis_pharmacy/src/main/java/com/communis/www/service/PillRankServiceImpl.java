@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.communis.www.controller.PillInfoApiController;
+import com.communis.www.controller.PillAPIController;
 import com.communis.www.domain.PagingVO;
 import com.communis.www.domain.PillVO;
 import com.communis.www.repository.PillRankDAO;

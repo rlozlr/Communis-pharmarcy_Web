@@ -42,7 +42,7 @@ public class MenuController {
 	private final PillImgHandler pih;
 	
 	@Autowired
-    private PillInfoApiController pillInfoApiController;
+    private PillAPIController PillAPIController;
 
 	@GetMapping("/register")
 	public void register () {}
@@ -50,7 +50,7 @@ public class MenuController {
 	@ResponseBody
 	@GetMapping(value="/{itemName}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<PillVO>> searchPill(@PathVariable("itemName") String itemName) {
-	    List<PillVO> pillInfoList = pillInfoApiController.fetchPillData(itemName);
+	    List<PillVO> pillInfoList = PillAPIController.fetchPillData(itemName);
 	    if (pillInfoList != null) {
 	        return ResponseEntity.ok(pillInfoList);
 	    } else {
@@ -68,29 +68,13 @@ public class MenuController {
 	    return "redirect:/menu/list";
 	}
     
-//	@GetMapping("/list")
-//	public void list (Model model, PagingVO pgvo, @RequestParam("pillId") long pillId) {
-//		List<PillVO> list = msv.getList(pgvo);
-//		int totalCount = msv.totalCount(pgvo);
-//		PagingHandler ph = new PagingHandler(pgvo, totalCount);
-//		model.addAttribute("list", list);
-//		model.addAttribute("ph", ph);
-//		model.addAttribute("mdto", msv.getDetail(pillId));
-//	}
-	
 	@GetMapping("/list")
-	public void list(Model model, PagingVO pgvo) {
-	    List<PillVO> list = msv.getList(pgvo);
-	    int totalCount = msv.totalCount(pgvo);
-	    PagingHandler ph = new PagingHandler(pgvo, totalCount);
-	    model.addAttribute("list", list);
-	    model.addAttribute("ph", ph);
-	    
-	    // PillImgVO 리스트를 가져와서 mdto에 추가
-	    List<PillImgVO> pillImgList = msv.getPillImgList();
-	    MenuDTO mdto = new MenuDTO();
-	    mdto.setPillImgList(pillImgList);
-	    model.addAttribute("mdto", mdto);
+	public void list (Model model, PagingVO pgvo) {
+		List<PillVO> list = msv.getList(pgvo);
+		int totalCount = msv.totalCount(pgvo);
+		PagingHandler ph = new PagingHandler(pgvo, totalCount);
+		model.addAttribute("list", list);
+		model.addAttribute("ph", ph);
 	}
 	
 	@PutMapping(value = "/update", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)

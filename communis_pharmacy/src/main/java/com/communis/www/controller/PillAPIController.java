@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/apiPill")
-public class PillInfoApiController {
+public class PillAPIController {
 	
 	// 네이버 검색 API
 	private final String clientId = "GKiuRoD8tw_H5nG_0SA_";

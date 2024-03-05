@@ -21,113 +21,94 @@
           style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; background: rgba(0,0,0,0.2);"
         ></div>
       </div>
+      
       <div style="width: 150px; height: 39px; position: absolute; left: 104px; top: 129px;">
-        <p
-          style="position: absolute; left: 0px; top: 0px; font-size: 32px; font-weight: 700; text-align: left; color: #fff;"
-        >
+        <p style="position: absolute; left: 0px; top: 0px; font-size: 32px; font-weight: 700; text-align: left; color: #fff;">
           <a href="/pillRank/digestionDetail" style="text-decoration: none; color: #fff;">소화기</a>
         </p>
       </div>
     </div>
+    
     <div style="width: 297px; height: 297px; position: absolute; left: 0px; top: 380px;">
       <img
         style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; border-radius: 30px;"
-        src="/resources/image/pillRank/flu_img.png"
-      />
-      <div
-        style="width: 297px; height: 297px; position: absolute; left: 0px; top: 0px; overflow: hidden; border-radius: 30px;"
-      >
-        <div
-          style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; background: rgba(0,0,0,0.2);"
-        ></div>
+        src="/resources/image/pillRank/flu_img.png"/>
+      <div style="width: 297px; height: 297px; position: absolute; left: 0px; top: 0px; overflow: hidden; border-radius: 30px;">
+        <div style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; background: rgba(0,0,0,0.2);"></div>
       </div>
+      
       <div style="width: 150px; height: 39px; position: absolute; left: 104px; top: 129px;">
-        <p
-          style="position: absolute; left: 0px; top: 0px; font-size: 32px; font-weight: 700; text-align: left; color: #fff;"
-        >
+        <p style="position: absolute; left: 0px; top: 0px; font-size: 32px; font-weight: 700; text-align: left; color: #fff;">
           <a href="#" style="text-decoration: none; color: #fff;">호흡기</a>
         </p>
       </div>
     </div>
+    
     <div style="width: 297px; height: 297px; position: absolute; left: 422px; top: 0px;">
       <img
         style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; border-radius: 30px;"
-        src="/resources/image/pillRank/skin_img.png"
-      />
+        src="/resources/image/pillRank/skin_img.png"/>
       <div style="width: 297px; height: 297px; position: absolute; left: 0px; top: 0px;">
-        <div
-          style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; border-radius: 30px; background: rgba(0,0,0,0.2);"
-        ></div>
+        <div style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; border-radius: 30px; background: rgba(0,0,0,0.2);"></div>
       </div>
+      
       <div style="width: 150px; height: 39px; position: absolute; left: 104px; top: 129px;">
-        <p
-          style="position: absolute; left: 15px; top: 0px; font-size: 32px; font-weight: 700; text-align: left; color: #fff;"
-        >
+        <p style="position: absolute; left: 15px; top: 0px; font-size: 32px; font-weight: 700; text-align: left; color: #fff;">
           <a href="#" style="text-decoration: none; color: #fff;">피부</a>
         </p>
       </div>
     </div>
+    
     <div style="width: 297px; height: 297px; position: absolute; left: 422px; top: 380px;">
       <img
         style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; border-radius: 30px;"
-        src="/resources/image/pillRank/goods_img.png"
-      />
+        src="/resources/image/pillRank/goods_img.png"/>
+      
       <div style="width: 150px; height: 39px; position: absolute; left: 104px; top: 129px;"></div>
+      
       <div
-        style="width: 297px; height: 297px; position: absolute; left: 0px; top: 0px; overflow: hidden; border-radius: 30px;"
-      >
-        <div
-          style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; background: rgba(0,0,0,0.2);"
-        ></div>
+        style="width: 297px; height: 297px; position: absolute; left: 0px; top: 0px; overflow: hidden; border-radius: 30px;">
+        <div style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; background: rgba(0,0,0,0.2);"></div>
       </div>
+      
       <div style="width: 150px; height: 39px; position: absolute; left: 104px; top: 129px;">
-        <p
-          style="position: absolute; left: -14px; top: 0px; font-size: 32px; font-weight: 700; text-align: left; color: #fff;"
-        >
+        <p style="position: absolute; left: -14px; top: 0px; font-size: 32px; font-weight: 700; text-align: left; color: #fff;">
           <a href="#" style="text-decoration: none; color: #fff;">의료용품</a>
         </p>
       </div>
     </div>
+    
     <div style="width: 297px; height: 297px; position: absolute; left: 844px; top: 0px;">
       <img
         style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; border-radius: 30px;"
         src="/resources/image/pillRank/pain_img.png"
       />
-      <div
-        style="width: 297px; height: 297px; position: absolute; left: 0px; top: 0px; border-radius: 30px;"
-      >
-        <div
-          style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; border-radius: 30px; background: rgba(0,0,0,0.2);"
-        ></div>
+      <div style="width: 297px; height: 297px; position: absolute; left: 0px; top: 0px; border-radius: 30px;">
+        <div style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; border-radius: 30px; background: rgba(0,0,0,0.2);"></div>
       </div>
+      
       <div style="width: 150px; height: 39px; position: absolute; left: 104px; top: 129px;">
-        <p
-          style="position: absolute; left: 15px; top: 0px; font-size: 32px; font-weight: 700; text-align: left; color: #fff;"
-        >
+        <p style="position: absolute; left: 15px; top: 0px; font-size: 32px; font-weight: 700; text-align: left; color: #fff;">
           <a href="#" style="text-decoration: none; color: #fff;">통증</a>
         </p>
       </div>
     </div>
-    <div style="width: 297px; height: 297px; position: absolute; left: 844px; top: 380px;">
+    
+	<div style="width: 297px; height: 297px; position: absolute; left: 844px; top: 380px;">
       <img
         style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; border-radius: 30px;"
-        src="/resources/image/pillRank/pet_img.png"
-      />
-      <div
-        style="width: 297px; height: 297px; position: absolute; left: 0px; top: 0px; overflow: hidden; border-radius: 30px;"
-      >
-        <div
-          style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; background: rgba(0,0,0,0.2);"
-        ></div>
+        src="/resources/image/pillRank/pet_img.png"/>
+      <div style="width: 297px; height: 297px; position: absolute; left: 0px; top: 0px; overflow: hidden; border-radius: 30px;">
+        <div style="width: 297px; height: 297px; position: absolute; left: -1px; top: -1px; background: rgba(0,0,0,0.2);"></div>
       </div>
+      
       <div style="width: 150px; height: 39px; position: absolute; left: 104px; top: 129px;">
-        <p
-          style="position: absolute; left: -14px; top: 0px; font-size: 32px; font-weight: 700; text-align: left; color: #fff;"
-        >
+        <p style="position: absolute; left: -14px; top: 0px; font-size: 32px; font-weight: 700; text-align: left; color: #fff;">
           <a href="#" style="text-decoration: none; color: #fff;">반려동물</a>
         </p>
       </div>
-    </div>
+	</div>
+      
   </div>
 </div>
 

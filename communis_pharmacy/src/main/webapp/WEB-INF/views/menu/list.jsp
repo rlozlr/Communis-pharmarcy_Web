@@ -51,19 +51,7 @@
 					<th scope="row">${pvo.pillId}</th>
 					
 					<td>
-						<c:choose>
-							<c:when test="${not empty mdto.pillImgList}">
-                    			<c:forEach items="${mdto.pillImgList}" var="pivo">
-                    				<c:if test="${pvo.pillId == pivo.pillId}">
-								 		<img src="${pivo.pillImgName}" alt="">
-										<a href="/menu/detail?pillId=${pvo.pillId}">${pvo.itemName}</a>
-									</c:if>
-								</c:forEach>
-							</c:when>
-							<c:otherwise>
-								<a href="/menu/detail?pillId=${pvo.pillId}">${pvo.itemName}</a>
-							</c:otherwise>
-						</c:choose>
+						<a href="/menu/detail?pillId=${pvo.pillId}">${pvo.itemName}</a>
 					</td>
 					<td>${pvo.entpName}</td>
 					<td>${pvo.pillPrice}</td>
