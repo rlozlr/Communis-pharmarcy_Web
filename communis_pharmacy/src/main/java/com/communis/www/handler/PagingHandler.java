@@ -14,6 +14,7 @@ public class PagingHandler {
 	private int startPage;
 	private int endPage;
 	private int totalCount;
+	private int qty;
 	
 	private PagingVO pgvo;
 	private Boolean prev, next;
@@ -32,5 +33,20 @@ public class PagingHandler {
 		this.prev = startPage > 1;
 		this.next = this.endPage < realEndPage;
 	}
-		
+
+	public PagingHandler(PagingVO pgvo, int totalCount, int qty) {
+	    this.pgvo = pgvo;
+	    this.totalCount = totalCount;
+	    this.qty = qty; // qty 값을 설정합니다.
+	    this.endPage = (int) Math.ceil(pgvo.getPageNo() / (double) this.qty) * this.qty; // this.qty를 사용하여 계산합니다.
+	    this.startPage = endPage - (this.qty - 1); // qty 값에 따라서 동적으로 설정합니다.
+	    
+	    int realEndPage = (int)(Math.ceil(totalCount / (double) this.qty));
+	    if(realEndPage < endPage) {
+	        this.endPage = realEndPage;
+	    }
+	    
+	    this.prev = startPage > 1;
+	    this.next = this.endPage < realEndPage;
+	}
 }

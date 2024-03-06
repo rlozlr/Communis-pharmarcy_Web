@@ -5,4 +5,44 @@
 
 <mapper namespace="com.communis.www.repository.PillRankDAO">
 
+	<select id="getDigestionList" resultType="com.communis.www.domain.PillVO">
+		SELECT * FROM pill
+		WHERE pill_status = 'Y'
+		<include refid="search"></include>
+		AND efcy_qesitm LIKE '%소화%'
+		ORDER BY pill_id DESC
+		LIMIT #{startPage}, #{qty}
+	</select>
+	
+	<select id="totalCount" resultType="int">
+	    SELECT COUNT(pill_id) FROM pill
+	    WHERE pill_status = 'Y'
+	    <include refid="search"></include>
+	    AND efcy_qesitm LIKE '%소화%'
+	</select>
+	
+	<select id="getDetail" resultType="com.communis.www.domain.PillVO">
+		SELECT * FROM pill 
+		WHERE pill_id = #{pillId}
+	</select>
+
+	<sql id="search">
+		<if test="type != null">
+			<trim prefix="AND (" suffix=")" prefixOverrides="OR">
+				<foreach collection="typeToArray" item="type">
+					<trim prefix="or">
+						<choose>
+							<when test="type == 'p'.toString()">
+								item_name LIKE CONCAT('%', #{keyword}, '%')
+							</when>
+							<when test="type == 'e'.toString()">
+								entp_name LIKE CONCAT('%', #{keyword}, '%')
+							</when>
+						</choose>
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
+
 </mapper>

@@ -24,7 +24,7 @@
       
       <div style="width: 150px; height: 39px; position: absolute; left: 104px; top: 129px;">
         <p style="position: absolute; left: 0px; top: 0px; font-size: 32px; font-weight: 700; text-align: left; color: #fff;">
-          <a href="/pillRank/digestionDetail" style="text-decoration: none; color: #fff;">소화기</a>
+          <a href="/pillRank/digestionList" style="text-decoration: none; color: #fff;">소화기</a>
         </p>
       </div>
     </div>

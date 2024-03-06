@@ -64,7 +64,7 @@
 	
 	<sql id="search">
 		<if test="type != null">
-			<trim prefix="WHERE (" suffix=")" prefixOverrides="OR">
+			<trim prefix="AND (" suffix=")" prefixOverrides="OR">
 				<foreach collection="typeToArray" item="type">
 					<trim prefix="or">
 						<choose>
