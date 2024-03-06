@@ -50,10 +50,5 @@ public class PillRankController {
 	    model.addAttribute("mdtoList", mdtoList);
 	}
 	
-//	@PostMapping("/buyNow")
-//	public void buyNow(Model model, PagingVO pgvo) {
-//
-//	}
-	
 	
 }
