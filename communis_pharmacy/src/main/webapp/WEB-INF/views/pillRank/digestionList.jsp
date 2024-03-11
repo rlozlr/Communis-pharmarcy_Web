@@ -88,13 +88,7 @@
 								<div>${mdtoList.pvo.pillPrice}원</div>
 								<div>
 									<button type="button">장바구니</button>
-									<form action="/orderCheck/buyNow" method="post">
-									    <input type="hidden" name="pillId" value="${mdtoList.pvo.pillId}">
-									    <input type="hidden" name="itemName" value="${mdtoList.pvo.itemName}">
-									    <input type="hidden" name="entpName" value="${mdtoList.pvo.entpName}">
-									    <input type="hidden" name="pillPrice" value="${mdtoList.pvo.pillPrice}">
-									    <button type="submit">바로구매</button>
-									</form>
+									<a href="/orderController/orderCheck?pillId=${mdtoList.pvo.pillId}"><button type="button">바로구매</button></a>
 								</div>
 							</div>
 						</div>
