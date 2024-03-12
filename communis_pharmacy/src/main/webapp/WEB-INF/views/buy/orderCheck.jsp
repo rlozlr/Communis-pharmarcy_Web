@@ -39,7 +39,7 @@
                 <div class="mb-3">
                     <label for="buyerPhoneNumber" class="form-label">구매자 전화번호</label>
                     <input type="tel" class="form-control" id="buyerPhoneNumber" name="buyerPhoneNumber" required>
-                </div>
+                </div><br><hr><br>
                 <h3>받는이 정보 입력</h3>
                 <div class="form-check mb-3">
                     <input type="checkbox" class="form-check-input" id="sameAsBuyer">
@@ -55,38 +55,30 @@
                 </div>
                 <div class="input-group mb-3">
                     <label for="recipientAddress" class="form-label">배송 주소</label>
-					<button type="button" class="btn btn-outline-dark btn-sm showAddressModalBtn" id="showAddressModalBtn"
-					    data-bs-toggle="modal" data-bs-target="#addressModal">주소 검색</button>
                 </div>
                 <div class="mb-3">
-                    <label for="postcode" class="form-label">우편번호</label>
-                    <input type="text" class="form-control" id="postcode" name="postcode" readonly>
+                    <input type="text" id="sample6_postcode" placeholder="우편번호">
+                    <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                    <input type="text" id="sample6_address" placeholder="주소">
+                    <input type="text" id="sample6_detailAddress" placeholder="상세주소">
                 </div>
-                <div class="mb-3">
-                    <label for="roadAddress" class="form-label">도로명</label>
-                    <input type="text" class="form-control" id="roadAddress" name="roadAddress" readonly>
-                </div>
-                <div class="mb-3">
-                    <label for="detailAddress" class="form-label">상세주소</label>
-                    <input type="text" class="form-control" id="detailAddress" name="detailAddress">
-                </div>
-                <button type="submit" class="btn btn-primary">주문하기</button>
-            </form>
-        </div>
-    </div>
-    <h3>배송 정보</h3>
-    <table class="table table-striped">
-        <tbody>
-            <tr>
-                <th>결제 방법</th>
-                <td>${order.paymentMethod}</td>
-            </tr>
-        </tbody>
-    </table>
+			    <h3>배송 정보</h3>
+			    <table class="table table-striped">
+			        <tbody>
+			            <tr>
+			                <th>결제 방법</th>
+			                <td>${order.paymentMethod}</td>
+			            </tr>
+			        </tbody>
+			    </table>
+				<button type="submit" class="btn btn-primary">주문하기</button>
+			</form>
+		</div>
+	</div>
 </div>
 
 <!-- 모달 창 -->
-<div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -107,7 +99,9 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <script src="/resources/js/buy/orderCheck.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <jsp:include page="../layout/footer.jsp"></jsp:include>

@@ -45,3 +45,23 @@ pill_img_status VARCHAR(256) DEFAULT 'Y',
 pill_id BIGINT,
 PRIMARY KEY(pill_img_id)
 );
+
+-- 2024-03-12
+CREATE TABLE member (
+email VARCHAR(100) NOT NULL,
+pwd VARCHAR(1000) NOT NULL,
+nick_name VARCHAR(100) NOT NULL,
+reg_at DATETIME DEFAULT now(),
+last_login DATETIME DEFAULT NULL,
+PRIMARY KEY(email)
+);
+
+CREATE TABLE auth_member(
+email VARCHAR(100) NOT NULL,
+auth VARCHAR(50) NOT NULL
+);
+
+ALTER TABLE auth_member 
+ADD CONSTRAINT fk_auth
+FOREIGN KEY (email) 
+REFERENCES member(email);
