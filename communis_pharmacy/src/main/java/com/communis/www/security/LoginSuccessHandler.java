@@ -47,7 +47,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		setAuthEmail(authentication.getName());
-		setAuthUrl("/board/list");
+		setAuthUrl("/pillRank/list");
 		
 		boolean isOk = msv.updateLastLogin(getAuthEmail());
 		HttpSession ses = request.getSession();

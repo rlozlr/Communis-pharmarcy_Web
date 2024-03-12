@@ -5,25 +5,45 @@
 <mapper namespace="com.communis.www.repository.MemberDAO">
 
 	<insert id="insert">
-		INSERT INTO member (email, pwd, nick_name)
-		VALUES(#{email}, #{pwd}, #{nickName})
+		insert into member (email, pwd, nick_name)
+		values(#{email}, #{pwd}, #{nickName})
 	</insert>
 	
 	<insert id="insertAuthInit">
-		INSERT INTO auth_member
-		VALUES (#{email}, 'ROLE_USER')
+		insert into auth_member values (#{email}, 'ROLE_USER')
 	</insert>
 	
-	<select id="selectEmail" resultType="com.basicWeb.www.security.MemberVO">
-		SELECT * FROM member WHERE email = #{email}
+	<select id="selectEmail" resultType="com.communis.www.security.MemberVO">
+		select * from member where email = #{email}
 	</select>
 	
-	<select id="selectAuths" resultType="com.basicWeb.www.security.AuthVO">
-		SELECT * from auth_member WHERE email = #{email}
+	<select id="selectAuths" resultType="com.communis.www.security.AuthVO">
+		select * from auth_member where email = #{email}
 	</select>
 	
-	<update id="updateLastLogin">
-		UPDATE member SET last_login = now()
-		WHERE email = #{email}
+	<select id="selectAllList" resultType="com.communis.www.security.MemberVO">
+		select * from member
+	</select>
+	
+	<update id="updateLastLoging">
+		update member set last_login = now()
+		where email = #{email}
 	</update>
+
+	<update id="modifyPwdEmpty">
+		update member set nick_name = #{nickName} where email = #{email}
+	</update>
+	
+	<update id="modify">
+	update member set pwd = #{pwd}, nick_name = #{nickName} where email = #{email}
+	</update>
+	
+	<delete id="removeAuth">
+		delete from auth_member where email = #{email}
+	</delete>
+	
+	<delete id="remove">
+		delete from member where email = #{email}
+	</delete>
+	
 </mapper>
