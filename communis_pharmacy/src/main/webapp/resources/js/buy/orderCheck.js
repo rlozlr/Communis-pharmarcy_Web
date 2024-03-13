@@ -1,3 +1,114 @@
+document.getElementById('buyerPhoneNumber').addEventListener('input', function() {
+    // 특수 문자를 제거한 후 값을 업데이트
+    //this.value = this.value.replace(/[^0-9]/g, '');
+    this.value = this.value.replace(/\D/g, '');
+});
+
+document.getElementById('recipientPhoneNumber').addEventListener('input', function() {
+    // 특수 문자를 제거한 후 값을 업데이트
+    this.value = this.value.replace(/\D/g, '');
+});
+
+document.getElementById('sameAsBuyer').addEventListener('change', function() {
+    if (this.checked) {
+        // 체크박스가 체크되었을 때
+        var buyerName = document.getElementById('buyerName').value;
+        var buyerPhoneNumber = document.getElementById('buyerPhoneNumber').value;
+        
+        // 특수 문자를 제거한 후 값을 업데이트
+        var cleanedBuyerPhoneNumber = buyerPhoneNumber.replace(/\D/g, '');
+        
+        // 받는이 정보 입력 필드에 구매자 정보를 복사
+        document.getElementById('recipientName').value = buyerName;
+        document.getElementById('recipientPhoneNumber').value = cleanedBuyerPhoneNumber;
+    } else {
+        // 체크박스가 체크 해제되었을 때
+        // 받는이 정보 입력 필드를 비움
+        document.getElementById('recipientName').value = '';
+        document.getElementById('recipientPhoneNumber').value = '';
+    }
+});
+
+document.querySelector('form').addEventListener('submit', function(event) {
+    // 각 입력 필드의 값을 가져옴
+    var buyerName = document.getElementById('buyerName').value;
+    var buyerEmail = document.getElementById('buyerEmail').value;
+    var buyerPhoneNumber = document.getElementById('buyerPhoneNumber').value;
+    var recipientName = document.getElementById('recipientName').value;
+    var recipientPhoneNumber = document.getElementById('recipientPhoneNumber').value;
+    var sample6_postcode = document.getElementById('sample6_postcode').value;
+    var sample6_address = document.getElementById('sample6_address').value;
+    var sample6_detailAddress = document.getElementById('sample6_detailAddress').value;
+
+    // 입력 필드가 하나라도 비어 있으면 주문하기 버튼 비활성화
+    if (buyerName === '' || buyerEmail === '' || buyerPhoneNumber === '' || recipientName === '' || recipientPhoneNumber === '' || sample6_postcode === '' || sample6_address === '') {
+        event.preventDefault(); // 폼 제출을 막음
+        alert('정보를 모두 입력해주세요.');
+    }
+});
+
+// 버튼 요소들을 가져옵니다.
+const bankTransferBtn = document.getElementById('btnBankTransfer');
+const cardPaymentBtn = document.getElementById('btnCardPayment');
+const kakaoPayBtn = document.getElementById('btnKakaoPay');
+const naverPayBtn = document.getElementById('btnNaverPay');
+
+// 모든 버튼의 클릭 이벤트에 대한 처리를 구현합니다.
+bankTransferBtn.addEventListener('click', function() {
+    // 현재 버튼이 이미 활성화되어 있는지 확인합니다.
+    const isActive = bankTransferBtn.classList.contains('active');
+    // 현재 버튼이 활성화되어 있지 않으면
+    if (!isActive) {
+        // 버튼 클릭 시 모든 버튼의 활성화 상태를 해제하고 현재 버튼만 활성화 상태로 변경합니다.
+        resetButtonState();
+        bankTransferBtn.classList.add('active');
+    } else {
+        // 이미 활성화된 버튼을 클릭한 경우, 해당 버튼의 활성화 상태를 해제합니다.
+        bankTransferBtn.classList.remove('active');
+    }
+});
+
+cardPaymentBtn.addEventListener('click', function() {
+    const isActive = cardPaymentBtn.classList.contains('active');
+    if (!isActive) {
+        resetButtonState();
+        cardPaymentBtn.classList.add('active');
+    } else {
+        cardPaymentBtn.classList.remove('active');
+    }
+});
+
+kakaoPayBtn.addEventListener('click', function() {
+    const isActive = kakaoPayBtn.classList.contains('active');
+    if (!isActive) {
+        resetButtonState();
+        kakaoPayBtn.classList.add('active');
+    } else {
+        kakaoPayBtn.classList.remove('active');
+    }
+});
+
+naverPayBtn.addEventListener('click', function() {
+    const isActive = naverPayBtn.classList.contains('active');
+    if (!isActive) {
+        resetButtonState();
+        naverPayBtn.classList.add('active');
+    } else {
+        naverPayBtn.classList.remove('active');
+    }
+});
+
+// 모든 버튼의 활성화 상태를 초기화하는 함수입니다.
+function resetButtonState() {
+    bankTransferBtn.classList.remove('active');
+    cardPaymentBtn.classList.remove('active');
+    kakaoPayBtn.classList.remove('active');
+    naverPayBtn.classList.remove('active');
+}
+
+
+
+// 카카오 우편 open source
 function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {

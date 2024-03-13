@@ -87,8 +87,8 @@
 								<div id="coName">${mdtoList.pvo.entpName}</div>
 								<div>${mdtoList.pvo.pillPrice}원</div>
 								<div>
-									<button type="button">장바구니</button>
-									<a href="/orderController/orderCheck?pillId=${mdtoList.pvo.pillId}"><button type="button">바로구매</button></a>
+									<button type="button" id="addCart">장바구니</button>
+									<a href="/orderController/oneOrder?pillId=${mdtoList.pvo.pillId}"><button type="button">바로구매</button></a>
 								</div>
 							</div>
 						</div>
@@ -120,8 +120,5 @@
 		</div>
 	</div>
 </div>
-	<!-- <script src="/resources/js/pillRank/pillRankDetail.js"></script>
-<script type="text/javascript">
-	spreadPillNameFromAPI();
-</script> -->
+
 <jsp:include page="../layout/footer.jsp"></jsp:include>

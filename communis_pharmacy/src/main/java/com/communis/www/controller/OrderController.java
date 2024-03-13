@@ -1,7 +1,5 @@
 package com.communis.www.controller;
 
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +21,7 @@ public class OrderController {
 	private final OrderService osv;
 	//private final AddressAPIController addressAPI;
 	
-	@GetMapping("/orderCheck")
+	@GetMapping("/oneOrder")
 	public String buyNow(@RequestParam("pillId") long pillId, Model model) {
 		
 		PillVO pvo = osv.getPillInfo(pillId);
