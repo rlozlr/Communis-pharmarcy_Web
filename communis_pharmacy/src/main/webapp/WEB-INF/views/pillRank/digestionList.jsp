@@ -87,8 +87,8 @@
 								<div id="coName">${mdtoList.pvo.entpName}</div>
 								<div>${mdtoList.pvo.pillPrice}원</div>
 								<div>
-									<button type="button" id="addCart">장바구니</button>
-									<a href="/orderController/oneOrder?pillId=${mdtoList.pvo.pillId}"><button type="button">바로구매</button></a>
+									<a href="/buy/cart?pillId=${mdtoList.pvo.pillId}"><button type="button" id="addCart">장바구니</button></a>
+									<a href="/buy/oneOrder?pillId=${mdtoList.pvo.pillId}"><button type="button">바로구매</button></a>
 								</div>
 							</div>
 						</div>

@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/orderController/*")
+@RequestMapping("/buy/*")
 public class OrderController {
 	
 	private final OrderService osv;
@@ -28,6 +28,11 @@ public class OrderController {
 		model.addAttribute("pvo", pvo);
 		
 		return "/buy/orderCheck";
+	}
+	
+	@GetMapping("/cart")
+	public String cart() {
+	    return "/buy/cart";
 	}
 	
 }

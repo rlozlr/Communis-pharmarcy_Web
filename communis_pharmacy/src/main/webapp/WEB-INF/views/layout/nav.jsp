@@ -29,6 +29,9 @@
           <a class="nav-link" href="#">가까운 약국</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/buy/cart">장바구니</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/member/login">로그인</a>
         </li>
         <li class="nav-item">
